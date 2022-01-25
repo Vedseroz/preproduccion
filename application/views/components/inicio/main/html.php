@@ -1,3 +1,6 @@
+
+<?php if (!$this->ion_auth->in_group(array('juridica1','abogado'))): ?>  <!--Si pertenece a juridica, devuelve falso y no entra al if -->
+
 <div class="row">
 	<div class="col-md-6">
 		<div class="widget-box">
@@ -93,7 +96,6 @@
 							</tbody>
 						</table>
 					</div>
-				
 					
 				</div>
 			</div>
@@ -135,6 +137,18 @@
 		</div>
 	</div><!-- /.col -->
 </div>
+
+<?php endif;?>
+
+<div class="clearfix center col-xs-12">
+</div>
+
+<?php if ($this->ion_auth->in_group(array('juridica1','abogado'))): ?>
+
+	
+
+
+<?php endif;?>
 
 <h3 class="header smaller lighter green">Sistemas externos</h3>
 <div class='parent grid-parent'>

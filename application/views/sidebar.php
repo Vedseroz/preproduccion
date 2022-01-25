@@ -14,7 +14,7 @@
             </a>
             <b class="arrow"></b>
         </li>
-        
+
         <!-- Item: Licencias médicas -->
         <li class="<?= array('licenciasMedicas') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
             <a href="<?= site_url('LicenciasMedicas/administrador') ?>">
@@ -155,6 +155,7 @@
             </ul>
         </li> <!-- FIN Menu Administrador -->
     </ul>
+
 
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
         <i id="sidebar-toggle-icon" class="ace-save-state ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left"

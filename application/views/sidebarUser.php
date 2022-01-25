@@ -14,6 +14,28 @@
             </a>
             <b class="arrow"></b>
         </li>
+
+        <!--Procedimientos Juridica-->
+        <?php if ($this->ion_auth->in_group(array('juridica1','abogado')) == 1 ) : ?>
+        <li class="<?= array('ProcedimientosJuridica/procedimientos') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
+            <a href="<?= site_url('ProcedimientosJuridica/procedimientos') ?>">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text">Flujo Procedimientos</span>
+            </a>
+            <b class="arrow"></b>
+        </li> 
+         <?php endif; ?>
+
+        <li class="<?= array('causas') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
+            <a href="<?= site_url('causas') ?>">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text">Flujo Causas</span>
+            </a>
+            <b class="arrow"></b>
+        </li> 
+
+       
+
         
         <?php if ($this->ion_auth->in_group(array('bpeducacion','dotacion','bpkpi'))): ?>
 		<!-- Menu Educación -->
@@ -212,6 +234,7 @@
         
         
         <!-- Menu consultor process -->
+        <?php if (!$this->ion_auth->in_group(array('juridica1','abogado'))): ?>       <!-- si esta en juridica, lo omite-->
         <li class="<?= array('consultor') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
         		<a href="<?= site_url('Buscadorprocess/consultorProcess') ?>">
                 <i class="menu-icon fa fa-search"></i>
@@ -219,8 +242,10 @@
             </a>
             <b class="arrow"></b>
         </li> <!-- FIN Menu consultorprocess -->
-        
+        <?php endif; ?>
+
         <!-- Menu Utilidades -->
+        <?php if (!$this->ion_auth->in_group(array('juridica1','abogado'))): ?>       <!-- si esta en juridica, lo omite-->
         <li class="<?= array('utilidades') === array_slice($menu_items, 0, 1) ? 'active open' : '' ?>">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-files-o"></i>
@@ -254,6 +279,7 @@
                 </li><?php endif; ?>
             </ul>
         </li> <!-- FIN Menu Utilidades -->
+        <?php endif; ?>
         
         <?php if ($this->ion_auth->in_group('developed')): ?>
         <!-- Menu Noticias -->

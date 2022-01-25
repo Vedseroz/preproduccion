@@ -1,4 +1,9 @@
 <style>
+.no-click {
+    pointer-events: none;
+}
+</style>
+<style>
     .contenedor {
         display: flex;
         justify-content: space-around;

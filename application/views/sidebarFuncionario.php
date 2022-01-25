@@ -33,6 +33,7 @@
                 </li>
             </ul>
         </li>
+
         
         <!-- Información Contractual -->
 	    <li class="<?= array('contratos') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
