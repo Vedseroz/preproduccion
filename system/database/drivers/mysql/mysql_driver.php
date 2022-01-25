@@ -65,7 +65,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 * @var	bool
 	 */
 	public $compress = FALSE;
-
+	
 	/**
 	 * DELETE hack flag
 	 *
