@@ -22,6 +22,7 @@
         <h1>Ingresar información de Denuncia </h1>
         <?= form_open_multipart(site_url('FlujoCausas/Laboral/insertar_monitorio'), 'class="form-horizontal" role="form"') ?>
 
+
            <br>
             
             <!--Nombre del Demandante-->
