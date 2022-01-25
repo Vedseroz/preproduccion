@@ -113,7 +113,7 @@ abstract class General_model extends CI_Model {
     	
     }
     
-    public function update_batch($data = array(), $value) {
+    public function update_batch($value, $data = array()) {
     	return $this->db->update_batch($this->table, $data, $value);
     }
     

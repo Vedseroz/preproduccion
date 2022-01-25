@@ -958,7 +958,7 @@ class Ion_auth_model extends CI_Model
 	 * @return    bool
 	 * @author    Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = array(), $groups = array(), $centers)
+	public function register($identity, $password, $email,$centers, $additional_data = array(), $groups = array())
 	{
 		$this->trigger_events('pre_register');
 

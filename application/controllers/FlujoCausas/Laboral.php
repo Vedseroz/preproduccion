@@ -80,6 +80,7 @@ class Laboral extends CI_Controller{
         );
         //inserta en el model el array
         $this->Laboral_model->insertar_monitorio($datos);
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
         
        
     }
