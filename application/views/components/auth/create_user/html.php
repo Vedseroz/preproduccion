@@ -155,7 +155,7 @@
         <?php endforeach?>
         <h4>Otros grupos:</h4>
         <?php foreach ($groups as $k => $group):?>
-            <?php if ($groups[$k]['id'] == 12 || $groups[$k]['id'] == 6 || $groups[$k]['id'] == 20 || $groups[$k]['id'] == 21):?>
+            <?php if ($groups[$k]['id'] == 12 || $groups[$k]['id'] == 6 || $groups[$k]['id'] == 20 || $groups[$k]['id'] == 21 || $groups[$k]['id'] == 22 || $groups[$k]['id'] == 23):?>
                 <input class="grupo-checkbox-5" type="checkbox" name="groups[]" value="<?php echo $group['id'];?>">
                 <?php 
                     if($groups[$k]['id'] == 12){
@@ -166,6 +166,10 @@
                         echo htmlspecialchars('Funcionarios: Perfil basico',ENT_QUOTES,'UTF-8');
                     }else if( $groups[$k]['id'] == 21){
                         echo htmlspecialchars('Pedidos Drogueria',ENT_QUOTES,'UTF-8');
+                    }else if ($groups[$k]['id']==22){
+                        echo htmlspecialchars('Jurídica Gestión',ENT_QUOTES,'UTF-8');
+                    }else if ($groups[$k]['id']==23){
+                        echo htmlspecialchars('Jurídica Abogados',ENT_QUOTES,'UTF-8');
                     }
                 ?>
                 <br>

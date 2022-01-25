@@ -303,7 +303,7 @@ class Ion_auth
 	 *                        if the operation failed.
 	 * @author Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = array(), $group_ids = array(), $center)
+	public function register($identity, $password,$center, $email, $additional_data = array(), $group_ids = array())
 	{
 		$this->ion_auth_model->trigger_events('pre_account_creation');
 

@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'session', 'message_handler', 'ion_auth', 'view_handler', 'bootstrap','PHPMailer_Lib');
+$autoload['libraries'] = array('database', 'session', 'message_handler', 'ion_auth', 'view_handler', 'bootstrap','PHPMailer_Lib','form_validation');
 
 /*
 | -------------------------------------------------------------------

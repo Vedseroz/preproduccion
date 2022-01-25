@@ -8,6 +8,7 @@ class Inicio extends MY_Controller {
 		parent::__construct();
 		$this->load->model('Noticias_model');
 		$this->load->model('Inicio_model');
+		$this->load->model('Casos_model');
 		/*
 			Breadcrumb:
 			Por cada nivel que se desee mostrar, se agrega un array con la siguiente estructura 
@@ -35,6 +36,12 @@ class Inicio extends MY_Controller {
 		$this->data['menu_items'] = array(
 			'inicio',
 		);
+
+		if($this->ion_auth->in_group('juridica1')){
+			$this->data['avatar'] = 'profesor.jpg';
+			$this->data['avatar_descrip'] = 'Imagen avatar Usuario 1';
+			$this->data['avatar_nombre'] = 'Usuario 1';
+		}
     }
 
 	public function index(){
@@ -45,6 +52,17 @@ class Inicio extends MY_Controller {
 		$this->data['noticias'] = $this->Noticias_model->cardsNoticias();//CARDS CON LAS NOTICIAS DEL AÑO
 		$this->data['resumen'] = $this->Inicio_model->getResumen();
 		$this->view_handler->view('inicio', 'main', $this->data);
+		
 	}
+	
+
+	public function getProcedimientos(){
+		if($this->ion_auth->in_group('juridica1')){
+			$data = $this->Casos_model->data_casos();
+			echo json_encode($data);
+			return;
+		}
+	}
+
 
 }
