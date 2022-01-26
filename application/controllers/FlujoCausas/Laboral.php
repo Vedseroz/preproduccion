@@ -94,14 +94,19 @@ class Laboral extends CI_Controller{
             echo "no cargo el config";
         }
         //inserta en el model el array
+
         $this->Laboral_model->insertar_monitorio($datos);
-        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
         
+        $this->mostrar($datos['']);
        
     }
 
     public function name(){
         return basename($_FILES["documento_fl"]["name"]);
+    }
+
+    public function mostrar(){
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
     }
 
 
