@@ -67,6 +67,7 @@ class Laboral extends CI_Controller{
         
         $rol = $this->input->post('rol');
         $tipo = explode("-",$rol);
+        $n_archivo = $this->name();  //nombre del archivo
 
         $datos = array(
             'n_demandante' => $this->input->post('n_demandante'),
@@ -76,8 +77,22 @@ class Laboral extends CI_Controller{
             'tribunal' => $this->input->post('tribunal'),
             'fecha_res' => $this->input->post('fecha_res'),
             'tipo' => $tipo[0],
-            'id_asignado' => 96
+            'id_asignado' => 96,
+            'archivo' => $n_archivo
         );
+        
+        $config['upload_path'] = './files/juridica/LaboralM/';
+        $config['allowed_types'] = '*';
+        $config['overwrite'] = true;
+        //subida del archivo
+        
+        if($this->upload->initialize($config)){
+        
+        $this->upload->do_upload('documento_fl');
+        }
+        else{
+            echo "no cargo el config";
+        }
         //inserta en el model el array
         $this->Laboral_model->insertar_monitorio($datos);
         $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
@@ -85,12 +100,8 @@ class Laboral extends CI_Controller{
        
     }
 
-    public function upload(){
-        $target_dir = "files/temp";
-        $target_file=$target_dir . basename($_FILES["FileToUpload"]["name"]);
-        $uploadok = 1;
-        $ImageFiletYpe = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
+    public function name(){
+        return basename($_FILES["documento_fl"]["name"]);
     }
 
 

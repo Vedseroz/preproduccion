@@ -1,11 +1,5 @@
 <?php defined('BASEPATH') OR exit ('No direct script access allowed')?>
 
-<div class="row linea-separadora">
-    <div class="col-lg-12">
-        <hr size="8px" color="black" />
-    </div>
-</div>
-
 <div>
     <div class="offset-ms-4 col-sm-6">
     <?= validation_errors() ?>
@@ -20,7 +14,7 @@
     
     <div class="col-xs-12">
         <h1>Ingresar información de Denuncia </h1>
-        <?= form_open_multipart(site_url('FlujoCausas/Laboral/insertar_monitorio'), 'class="form-horizontal" role="form"') ?>
+        <?= form_open_multipart(site_url('FlujoCausas/Laboral/insertar_monitorio'), 'class="form-horizontal" role="form" method="POST"') ?>
 
 
            <br>
@@ -85,7 +79,7 @@
 
             <div class="row">
                 <div class="form-group">
-                <label class="col-md-2 control-label" for="fecha_res">Fecha de Respuesta:</label>
+                <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
                 <input name="fecha_res" data-rel="tooltip" type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?php echo set_value('fecha_res')?>">
                 </div>
             </div>
@@ -101,7 +95,6 @@
                             <div class="widget-header">
                                 <h4 class="widget-title">Adjuntar documento de demanda</h4>
                             </div>
-                    
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <div id="documento" class="form-group">
@@ -120,7 +113,7 @@
 
 
             <div class="clearfix form-actions center">
-                <button class="btn btn-info" type="submit">
+                <button class="btn btn-info" type="submit" value="upload">
                     <i class="ace-icon fa fa-check bigger-110"></i>
                     Ingresar
                 </button>
@@ -131,5 +124,6 @@
             </div>
 
         </form>
+    </div>
     </div>  
 </div>
