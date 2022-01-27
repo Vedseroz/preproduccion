@@ -1,18 +1,7 @@
 <?php defined('BASEPATH') OR exit ('No direct script access allowed')?>
-
-<div>
-    <div class="offset-ms-4 col-sm-6">
-    <?= validation_errors() ?>
-    <?php foreach($errors as $error => $message): ?>
-        <div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>
-        <b><?= $error ?>:</b> <?= $message ?>
-        <br></div>
-    <?php endforeach; ?>
-</div>
-
 <div class="row">
-    
     <div class="col-xs-12">
+        
         <h1>Ingresar información de Denuncia </h1>
         <?= form_open_multipart(site_url('FlujoCausas/Laboral/insertar_monitorio'), 'class="form-horizontal" role="form" method="POST"') ?>
 
@@ -23,7 +12,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">Nombre del Demandante:</label>
-                    <input name="n_demandante" data-rel="tooltip" type="text" id="n_demandante" class="col-md-3" value="<?= set_value('n_demandante') ?>">
+                    <input name="n_demandante" data-rel="tooltip" type="text" readonly="readonly" id="n_demandante" class="col-md-3" value="<?php echo $n_demandante ?>">
                 </div>
             </div>
 
@@ -33,7 +22,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">RUT del Demandante:</label>
-                    <input name="rut" data-rel="tooltip" type="text" id="rut" class="col-md-3" value="<?= set_value('rut') ?>">
+                    <input name="rut" data-rel="tooltip" type="text" id="rut" readonly="readonly" class="col-md-3" value="<?= $rut ?>">
                 </div>
             </div>
 
@@ -43,7 +32,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="denunciante">RIT/ROL:</label>
-                    <input name="rol" data-rel="tooltip" type="text" id="rol" placeholder="" class="col-md-2" value="<?=  set_value('rol') ?>">
+                    <input name="rol" data-rel="tooltip" type="text" id="rol" readonly="readonly" placeholder="" class="col-md-2" value="<?=  $rol; ?>">
                 </div>
             </div>
 
@@ -53,7 +42,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fecha_not">Fecha de Notificación:</label>
-                    <input name="fecha_not" data-rel="tooltip" type="date" id="fecha_not" placeholder="" class="col-md-2" value="<?php echo set_value('fecha_not') ?>">
+                    <input name="fecha_not" data-rel="tooltip" type="date" id="fecha_not" readonly="readonly" placeholder="" readonly="readonly" class="col-md-2" value="<?= $fecha_not; ?>">
                 </div>
             </div>
 
@@ -63,13 +52,8 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="tribunal">Tribunal:</label>
-                    <select class="chosen-select col-md-2" name="tribunal" value="" onchange="" required>
-                        <option role="placeholder" value="">Seleccionar Tribunal</option>
-                        <option role="placeholder" value="1">TRIBUNAL 1</option>
-                        <option role="placeholder" value="2">TRIBUNAL 2</option>
-                        <option role="placeholder" value="3">TRIBUNAL 3</option>
-                        <option role="placeholder" value="4">TRIBUNAL 4</option>
-                        <option role="placeholder" value="5">TRIBUNAL 5</option>
+                    <select class="chosen-select col-md-2" readonly="readonly" name="tribunal" value="" onchange="" required>
+                        <option role="placeholder" value="<?= $tribunal ;?>"><?= "TRIBUNAL".' '.$tribunal;?></option>
                     </select>
                 </div>
             </div>
@@ -80,7 +64,7 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
-                <input name="fecha_res" data-rel="tooltip" type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?php echo set_value('fecha_res')?>">
+                <input name="fecha_res" data-rel="tooltip" type="date" readonly="readonly" id="fecha_res" placeholder="" class="col-md-2" value="<?= $fecha_res?>">
                 </div>
             </div>
 
@@ -99,7 +83,7 @@
                                 <div class="widget-main">
                                     <div id="documento" class="form-group">
                                         <div class="col-xs-12">
-                                            <input name="documento_fl" type="file" id="id-input-file_fl" />
+                                            <input name="documento_fl" type="text" id="id-input-file_fl" readonly="readonly" value="<?= $archivo;?>" />
                                         </div>
                                         <br>
                                     </div>

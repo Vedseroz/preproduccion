@@ -23,7 +23,7 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "<?= site_url('Inicio/getProcedimientos') ?>",
+            "url": "<?= site_url('Inicio/getCausas') ?>",
             "type": "POST"
         },
         "columnDefs": [
@@ -35,23 +35,29 @@ $(document).ready(function() {
                 "visible": true
             },
             {
-                "title": 'RUC',
-                "data": 'RUC',
+                "title": 'RIT/ROL',
+                "data": 'rol',
                 "targets": 1,
                 "searchable": false,
                 "visible": true
             },
             {
-                "title": 'Asignado',
-                "data": 'asignado',
+                "title": 'RUT',
+                "data": 'rut',
                 "targets": 2,
                 "searchable": true                
             },
             {
-                "title": 'Fecha',
-                "data": 'fecha',
-                "searchable": false,
+                "title": 'Nombre del Demandante',
+                "data": 'n_demandante',
                 "targets": 3,
+                "visible": true
+            }, 
+            {
+                "title": 'Fecha de Respuesta(?) ',
+                "data": 'fecha_res',
+                "searchable": false,
+                "targets": 4,
                 "visible": true,
                 "render": function ( data, type, row ) {
                     if(data == null) {
@@ -59,12 +65,6 @@ $(document).ready(function() {
                     }
                     return data.split("-").reverse().join("-");
                 }
-            },
-            {
-                "title": 'Titulo',
-                "data": 'titulo',
-                "targets": 4,
-                "visible": true
             },
             {
                 "title": 'Etapa',
@@ -86,13 +86,7 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 6,
                 "visible": true,
-                "render": function ( data, type, row ) {
-                    if(data == 1) {
-                        return 'Interna';
-                    }else{
-                        return 'Externa';
-                    }
-                }
+                
             },
             {
                 "title": 'Opciones',
@@ -102,7 +96,7 @@ $(document).ready(function() {
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     var link_edit = '*';
-                    if(row.etapa == 2) link_edit = '<?= site_url('procedimientos/Educacion1/Mostrar') ?>/' + row.id;
+                    if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 3) link_edit = '<?= site_url('EduciacionTercero/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     if(row.etapa == 4) link_edit = '<?= site_url('EduciacionCuarta/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     if(row.etapa == 5) link_edit = '<?= site_url('EduciacionQuinto/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;

@@ -31,5 +31,55 @@ class Laboral_model extends General_model{
     }
 
 
+    public function getall(){
+        $query  = $this->get('*', array());
+
+        return $query;
+    }
+
+
+    public function getbyid($id){
+        $this->db->from('juridica_laboral');
+        $this->db->where('juridica_laboral.id',$id);
+        $query = $this->db->get();
+        foreach($query as $value){
+            $data['id'] = $value->id;
+            $data['n_demandante'] = $value->n_demandante;
+            $data['rut'] = $value->rut;
+            $data['rol'] = $value->rol;
+            $data['fecha_not'] = $value->fecha_not;
+            $data['fecha_res'] = $value->fecha_res;
+            $data['fecha_prep'] = $value->fecha_prep;
+            $data['fecha_juicio'] = $value->fecha_juicio;
+            $data['tipo'] = $value->tipo;
+            $data['tribunal'] = $value->tribunal;
+            $data['id_asignado'] = $value->id_asignado;
+            $data['archivo'] = $value->archivo;
+        }
+        return $data;
+        
+    }
+
+    public function getlast(){
+        $this->db->order_by('id','DESC');
+        $this->db->limit(1);
+        $query  = $this->get('*', array());
+        foreach($query as $value){
+            $data['n_demandante'] = $value->n_demandante;
+            $data['rut'] = $value->rut;
+            $data['rol'] = $value->rol;
+            $data['fecha_not'] = $value->fecha_not;
+            $data['fecha_res'] = $value->fecha_res;
+            $data['fecha_prep'] = $value->fecha_prep;
+            $data['fecha_juicio'] = $value->fecha_juicio;
+            $data['tipo'] = $value->tipo;
+            $data['tribunal'] = $value->tribunal;
+            $data['id_asignado'] = $value->id_asignado;
+            $data['archivo'] = $value->archivo;
+        }
+        return $data;
+    }
+
+
 
 }

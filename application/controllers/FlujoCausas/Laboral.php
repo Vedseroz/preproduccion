@@ -64,6 +64,9 @@ class Laboral extends CI_Controller{
         $this->form_validation->set_rules('fecha_res','<b>Fecha de Respuesta</b>','trim|required');
 
         //creacion de array de datos.
+
+        $aux = $this->Laboral_model->getall();
+        var_dump($aux);
         
         $rol = $this->input->post('rol');
         $tipo = explode("-",$rol);
@@ -97,16 +100,27 @@ class Laboral extends CI_Controller{
 
         $this->Laboral_model->insertar_monitorio($datos);
         
-        $this->mostrar($datos['']);
-       
+        $this->mostrar_monitorio();
+        
     }
 
     public function name(){
         return basename($_FILES["documento_fl"]["name"]);
     }
 
-    public function mostrar(){
-        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
+    //mostrar los datos por el id de la fila
+    public function mostrar_monitorio_id($id){
+        $data = $this->Laboral_model->getbyid($id);
+        echo $id;
+        var_dump($data);
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data);
+    }
+
+
+    //mostrar informacion en inputs.
+    public function mostrar_monitorio(){
+       $data = $this->Laboral_model->getlast();
+       $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data); 
     }
 
 

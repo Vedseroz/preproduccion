@@ -9,6 +9,7 @@ class Inicio extends MY_Controller {
 		$this->load->model('Noticias_model');
 		$this->load->model('Inicio_model');
 		$this->load->model('Casos_model');
+		$this->load->model('Laboral_model');
 		/*
 			Breadcrumb:
 			Por cada nivel que se desee mostrar, se agrega un array con la siguiente estructura 
@@ -55,6 +56,13 @@ class Inicio extends MY_Controller {
 		
 	}
 	
+	public function getCausas(){
+		if($this->ion_auth->in_group('juridica1')){
+			$data = $this->Laboral_model->datatable();
+			echo json_encode($data);
+			return;
+		}
+	}
 
 	public function getProcedimientos(){
 		if($this->ion_auth->in_group('juridica1')){
