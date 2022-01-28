@@ -64,9 +64,13 @@ class Laboral extends CI_Controller{
         $this->form_validation->set_rules('fecha_res','<b>Fecha de Respuesta</b>','trim|required');
 
         //creacion de array de datos.
+
+        $aux = $this->Laboral_model->getall();
+        var_dump($aux);
         
         $rol = $this->input->post('rol');
         $tipo = explode("-",$rol);
+        $n_archivo = $this->name();  //nombre del archivo
 
         $datos = array(
             'n_demandante' => $this->input->post('n_demandante'),
@@ -76,21 +80,47 @@ class Laboral extends CI_Controller{
             'tribunal' => $this->input->post('tribunal'),
             'fecha_res' => $this->input->post('fecha_res'),
             'tipo' => $tipo[0],
-            'id_asignado' => 96
+            'id_asignado' => 96,
+            'archivo' => $n_archivo
         );
-        //inserta en el model el array
-        $this->Laboral_model->insertar_monitorio($datos);
-        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
         
-       
+        $config['upload_path'] = './files/juridica/LaboralM/';
+        $config['allowed_types'] = '*';
+        $config['overwrite'] = true;
+        //subida del archivo
+        
+        if($this->upload->initialize($config)){
+        
+        $this->upload->do_upload('documento_fl');
+        }
+        else{
+            echo "no cargo el config";
+        }
+        //inserta en el model el array
+
+        $this->Laboral_model->insertar_monitorio($datos);
+        
+        $this->mostrar_monitorio();
+        
     }
 
-    public function upload(){
-        $target_dir = "files/temp";
-        $target_file=$target_dir . basename($_FILES["FileToUpload"]["name"]);
-        $uploadok = 1;
-        $ImageFiletYpe = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    public function name(){
+        return basename($_FILES["documento_fl"]["name"]);
+    }
 
+    //mostrar los datos por el id de la fila
+    public function mostrar_monitorio_id($id){
+        $data = $this->Laboral_model->getbyid($id);
+        echo $id;
+        var_dump($data);
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data);
+    }
+
+
+    //mostrar informacion en inputs.
+    public function mostrar_monitorio(){
+       $data = $this->Laboral_model->getlast();
+       $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data); 
     }
 
 
