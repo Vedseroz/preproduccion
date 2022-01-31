@@ -24,7 +24,8 @@ class Causas extends CI_Controller {
 			'Causas'
 		);
 		
-		$this->data['title'] = '';
+		$this->data['title'] = 'FALSE';
+		$this->data['subtitle'] = 'Página en blanco';
 
 		$this->load->helper('array');
     }

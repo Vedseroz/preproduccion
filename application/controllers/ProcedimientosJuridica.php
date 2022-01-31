@@ -20,8 +20,8 @@ class ProcedimientosJuridica extends CI_Controller{
 	    $this->load->helper('date');
 	    $this->load->helper('directory');
     	// View data
-		$this->data['title'] = 'Procedimientos';
-		$this->data['subtitle'] = 'Menú';
+		$this->data['title'] = 'FALSE';
+		$this->data['subtitle'] = 'Página en blanco';
 		$this->data['breadcrumb'] = array(
 			array(
 				'name' => 'Flujo Procedimientos',

@@ -64,9 +64,6 @@ class Laboral extends CI_Controller{
         $this->form_validation->set_rules('fecha_res','<b>Fecha de Respuesta</b>','trim|required');
 
         //creacion de array de datos.
-
-        $aux = $this->Laboral_model->getall();
-        var_dump($aux);
         
         $rol = $this->input->post('rol');
         $tipo = explode("-",$rol);
@@ -81,7 +78,8 @@ class Laboral extends CI_Controller{
             'fecha_res' => $this->input->post('fecha_res'),
             'tipo' => $tipo[0],
             'id_asignado' => 96,
-            'archivo' => $n_archivo
+            'archivo' => $n_archivo,
+            'etapa' => 1
         );
         
         $config['upload_path'] = './files/juridica/LaboralM/';
@@ -100,7 +98,7 @@ class Laboral extends CI_Controller{
 
         $this->Laboral_model->insertar_monitorio($datos);
         
-        $this->mostrar_monitorio();
+        $this->status();
         
     }
 
@@ -109,18 +107,15 @@ class Laboral extends CI_Controller{
     }
 
     //mostrar los datos por el id de la fila
-    public function mostrar_monitorio_id($id){
+    public function mostrar_monitorio_id($id = null){
         $data = $this->Laboral_model->getbyid($id);
-        echo $id;
-        var_dump($data);
         $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data);
     }
 
 
     //mostrar informacion en inputs.
-    public function mostrar_monitorio(){
-       $data = $this->Laboral_model->getlast();
-       $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data); 
+    public function status(){
+       $this->view_handler->view('juridica/','status'); 
     }
 
 

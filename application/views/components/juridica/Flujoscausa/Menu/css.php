@@ -6,7 +6,7 @@
 .column {
   float: left;
   width: 25%;
-  padding: 1em;
+  padding: 10px;
   
 }
 
@@ -19,16 +19,17 @@
 
 .button {
   color: white;
-  padding: 1em;
+  padding: 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 1.3em;
-  margin: 0.2em 0.1em;
+  font-size: 16px;
+  margin: 4px 2px;
   cursor: pointer;
-  border-radius: 0.3em;
+  border-radius: 8px;
   width: 15em;
 }
+
 
 
 

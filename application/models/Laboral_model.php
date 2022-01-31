@@ -19,7 +19,9 @@ class Laboral_model extends General_model{
 			array( 'db' => 'juridica_laboral.tribunal', 'dt' => 'tribunal' ),
             array( 'db' => 'juridica_laboral.fecha_res', 'dt' => 'fecha_res' ),
             array( 'db' => 'juridica_laboral.fecha_prep', 'dt' => 'fecha_prep' ),
-            array( 'db' => 'juridica_laboral.fecha_juicio', 'dt' => 'fecha_juicio' )
+            array( 'db' => 'juridica_laboral.fecha_juicio', 'dt' => 'fecha_juicio' ),
+            array( 'db' => 'juridica_laboral.etapa', 'dt' => 'etapa'),
+            array( 'db' => 'juridica_laboral.tipo', 'dt' => 'tipo')
 		);
     	$data = $this->data_tables->complex($_POST , $table, $primaryKey, $columns);
         return $data;
@@ -38,11 +40,9 @@ class Laboral_model extends General_model{
     }
 
 
-    public function getbyid($id){
-        $this->db->from('juridica_laboral');
-        $this->db->where('juridica_laboral.id',$id);
-        $query = $this->db->get();
-        foreach($query as $value){
+    public function getbyid($id = null){
+        $query = $this->db->query('SELECT * FROM juridica_laboral WHERE juridica_laboral.id =' . $id);
+        foreach($query->result() as $value){
             $data['id'] = $value->id;
             $data['n_demandante'] = $value->n_demandante;
             $data['rut'] = $value->rut;
