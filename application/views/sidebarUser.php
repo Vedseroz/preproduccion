@@ -16,7 +16,7 @@
         </li>
 
         <!--Procedimientos Juridica-->
-        <?php if ($this->ion_auth->in_group(array('juridica1','abogado')) == 1 ) : ?>
+        <?php if ($this->ion_auth->in_group(array(22,23))) : ?>
         <li class="<?= array('ProcedimientosJuridica/procedimientos') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
             <a href="<?= site_url('ProcedimientosJuridica/procedimientos') ?>">
                 <i class="menu-icon fa fa-list-alt"></i>
@@ -26,6 +26,7 @@
         </li> 
          <?php endif; ?>
 
+         <?php if ($this->ion_auth->in_group(array(22,23))) : ?>
         <li class="<?= array('causas') === array_slice($menu_items, 0, 1) ? 'active' : '' ?>">
             <a href="<?= site_url('causas') ?>">
                 <i class="menu-icon fa fa-list-alt"></i>
@@ -33,7 +34,7 @@
             </a>
             <b class="arrow"></b>
         </li> 
-
+        <?php endif; ?>
        
 
         

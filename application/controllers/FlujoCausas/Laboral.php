@@ -42,6 +42,8 @@ class Laboral extends CI_Controller{
     }
 
     public function monitorio(){
+        $this->data['title'] = 'FALSE';
+		$this->data['subtitle'] = 'Página en blanco';
         
         $this->data['breadcrumb'] = array(
             array(
@@ -112,13 +114,35 @@ class Laboral extends CI_Controller{
         $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data);
     }
 
+    //edita la información que recibe
+    public function editar_monitorio(){
+
+        //se obtiene el id desde el url del sitio.
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+
+
+        $datos = array(
+            'id' => $this->$data['id'],
+            'url' => $actual_link,
+            'n_demandante' => $this->input->post('n_demandante'),
+            'rut' => $this->input->post('rut'),
+            'rol' => $this->input->post('rol'),
+            'fecha_not' => $this->input->post('fecha_not'),
+            'tribunal' => $this->input->post('tribunal'),
+            'fecha_res' => $this->input->post('fecha_res'),
+        );
+
+        var_dump($datos);
+    }
+
+
 
     //mostrar informacion en inputs.
     public function status(){
        $this->view_handler->view('juridica/','status'); 
     }
-
-
+    
 
 
 

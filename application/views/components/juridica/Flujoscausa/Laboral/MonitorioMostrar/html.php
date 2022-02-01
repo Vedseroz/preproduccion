@@ -2,8 +2,8 @@
 <div class="row">
     <div class="col-xs-12">
         
-        <h1>Ingresar información de Denuncia </h1>
-        <?= form_open_multipart(site_url('FlujoCausas/Laboral/insertar_monitorio'), 'class="form-horizontal" role="form" method="POST"') ?>
+        <h1>Actualizar información de Denuncia: </h1>
+        <?= form_open_multipart(site_url('FlujoCausas/Laboral/editar_monitorio'), 'class="form-horizontal" role="form" method="POST"') ?>
 
 
            <br>
@@ -46,6 +46,9 @@
                 </div>
             </div>
 
+            <!--Fecha de respuesta-->
+
+
             <br>
 
             <!--Seleccion de tribunal-->
@@ -64,7 +67,7 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
-                <input name="fecha_res" data-rel="tooltip" type="date" readonly="readonly" id="fecha_res" placeholder="" class="col-md-2" value="<?= $fecha_res?>">
+                <input name="fecha_res" data-rel="tooltip" type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?= $fecha_res?>">
                 </div>
             </div>
 
@@ -99,7 +102,7 @@
             <div class="clearfix form-actions center">
                 <button class="btn btn-info" type="submit" value="upload">
                     <i class="ace-icon fa fa-check bigger-110"></i>
-                    Ingresar
+                    Editar
                 </button>
                 <a href="<?= site_url("inicio/index")?>" class="btn btn-danger" type="reset">
                     <i class="ace-icon fa fa-times   bigger-110"></i>

@@ -57,7 +57,7 @@ class Inicio extends MY_Controller {
 	}
 	
 	public function getCausas(){
-		if($this->ion_auth->in_group('juridica1')){
+		if($this->ion_auth->in_group(array(22,23))){
 			$data = $this->Laboral_model->datatable();
 			echo json_encode($data);
 			return;
@@ -65,7 +65,7 @@ class Inicio extends MY_Controller {
 	}
 
 	public function getProcedimientos(){
-		if($this->ion_auth->in_group('juridica1')){
+		if($this->ion_auth->in_group(array(22,23))){
 			$data = $this->Casos_model->data_casos();
 			echo json_encode($data);
 			return;

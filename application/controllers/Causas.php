@@ -31,7 +31,7 @@ class Causas extends CI_Controller {
     }
 
 	public function index()	{
-		if($this->ion_auth->in_group(22)) $this->view_handler->view('juridica/Flujoscausa', 'Menu', $this->data);
+		if($this->ion_auth->in_group(array(22,23))) $this->view_handler->view('juridica/Flujoscausa', 'Menu', $this->data);
 	}
 
 }

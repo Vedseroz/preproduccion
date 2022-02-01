@@ -118,7 +118,7 @@ $(document).ready(function() {
                 }
             }
         ],
-        "order": [[ 5, "asc" ]],
+        "order": [[ 0, "asc" ]],
         "language": {
             "url": "<?= base_url('assets/js/dataTable.spanish.json') ?>"
         }

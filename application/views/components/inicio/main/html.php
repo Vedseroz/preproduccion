@@ -1,5 +1,5 @@
 
-<?php if (!$this->ion_auth->in_group(array('juridica1','abogado'))): ?>  <!--Si pertenece a juridica, devuelve falso y no entra al if -->
+<?php if (!$this->ion_auth->in_group(array(22,23))): ?>  <!--Si pertenece a juridica, devuelve falso y no entra al if -->
 
 <div class="row">
 	<div class="col-md-6">
@@ -143,7 +143,7 @@
 <div class="clearfix center col-xs-12">
 </div>
 
-<?php if ($this->ion_auth->in_group(array('juridica1','abogado'))): ?>
+<?php if ($this->ion_auth->in_group(array(22,23))): ?>
 
 	<div class="clearfix center col-xs-12"></div>
 
