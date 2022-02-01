@@ -63,6 +63,7 @@ $(document).ready(function() {
                     if(data == null) {
                         return 'Sin información'
                     }
+                    //else if(row.etapa == 1){}
                     return data.split("-").reverse().join("-");
                 }
             },
@@ -72,9 +73,9 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 5,
                 "render": function ( data, type, row ) {
-                    if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';
-                    if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';
-                    if(row.etapa == 3) return 'Formulación de Cargo -> Dictamen';
+                    if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
+                    if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
+                    if(row.etapa == 3) return 'Formulación de Cargo -> Dictamen';         //laboral ordinario
                     if(row.etapa == 4) return 'Dictamen -> Impugnación';
                     if(row.etapa == 5) return 'Impugnación -> Resolución';
                     if(row.etapa == 6) return 'Resolución Finalizada';
@@ -89,9 +90,21 @@ $(document).ready(function() {
                 
             },
             {
+                "title": 'Fecha Siguiente Etapa',
+                "data": 'fecha_res',
+                "searchable": false,
+                "targets": 7,
+                "render": function ( data, type, row ) {
+                    if(row.etapa == 1){
+                        return addDaystoDate(row.fecha_res,10);
+                    }
+                }
+                
+            },
+            {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 7,
+                "targets": 8,
                 "searchable": false,
                 "orderable": false,
                 "render": function ( data, type, row ) {
@@ -116,6 +129,15 @@ $(document).ready(function() {
                      
                     return options_normal + options_responsive;
                 }
+            },
+            {
+                "title": 'fecha_not',
+                "data": 'fecha_not',
+                "searchable": false,
+                "targets": 9,
+                "visible": false,
+                
+                
             }
         ],
         "order": [[ 0, "asc" ]],
@@ -124,144 +146,6 @@ $(document).ready(function() {
         }
     } );
 
-/*  var myTable2 = $('#dynamic-table2');
-
-    function inicializarDT(){
-
-        $('#dynamic-table2').DataTable( {
-            "bAutoWidth": false,
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "<?= site_url('ajax/getEstudiantesDrvz') ?>",
-                "type": "POST"
-            },
-            "columnDefs": [
-                {
-                    "title": 'ID',
-                    "data": 'id',
-                    "targets": 0,
-                    "searchable": false,
-                    "visible": false
-                },
-                {
-                    "title": 'RUT',
-                    "data": 'rut',
-                    "targets": 1
-                },
-                {
-                    "title": 'Nombres',
-                    "data": 'nombres',
-                    "targets": 2
-                },
-                {
-                    "title": 'Apellido P.',
-                    "data": 'apellido_p',
-                    "targets": 3
-                },
-                {
-                    "title": 'Apellido M.',
-                    "data": 'apellido_m',
-                    "targets": 4,
-                },
-                {
-                    "title": 'Fecha',
-                    "data": 'fecha',
-                    "searchable": false,
-                    "targets": 5,
-                    "render": function ( data, type, row ) {
-                        if(data == null) {
-                            return 'Sin información'
-                        }
-                        return data.split("-").reverse().join("-");
-                    }
-                },
-                {
-                    "title": 'Tipo',
-                    "data": 'tipo',
-                    "searchable": false,
-                    "targets": 6,
-                    "render": function ( data, type, row ) {
-                                if(row.tipo == 1) return 'Habilidades/talentos';
-                                if(row.tipo == 2) return 'Conductual->En espera';
-                                if(row.tipo == 3) return 'Conductual->Mediación escolar';
-                                if(row.tipo == 4) return 'Conductual->Red interna';
-                                if(row.tipo == 5) return 'Conductual->Red externa';
-                            },
-                },
-                {
-                    "title": 'Etapa',
-                    "data": 'etapa',
-                    "searchable": false,
-                    "targets": 7,
-                    "render": function ( data, type, row ) {
-                                if(row.tipo == 1){
-                                    return data + ' de 2 ';
-                                } else{
-                                    if(row.tipo == 2){
-                                        return data + ' de 3+ ';
-                                    }else{
-                                        if(row.tipo == 3){
-                                            return data + ' de 4 ';
-                                        }else{
-                                            if(row.tipo == 4 || row.tipo == 5){
-                                                return data + ' de 3 ';
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                },
-                {
-                    "title": 'Opciones',
-                    "data": null,
-                    "targets": 8,
-                    "searchable": false,
-                    "orderable": false,
-                    "render": function ( data, type, row ) {
-                        var link_edit ='*';
-                        if(row.tipo == 1){
-                            link_edit ='<?= site_url('derivacionA11/Usuario1Espera') ?>/' + row.id + '/' + row.id_drvz;
-                        }
-                        if(row.tipo == 2){
-                            link_edit ='<?= site_url('derivacionA21/UsuarioEspera') ?>/' + row.id + '/' + row.id_drvz;
-                        }
-                        if(row.tipo == 3){
-                            if(row.etapa == 3) link_edit ='<?= site_url('derivacionA22/Usuario1Espera') ?>/' + row.id + '/' + row. id_drvz;
-                            if(row.etapa == 4) link_edit ='<?= site_url('derivacionA23/Usuario1Ing') ?>/' + row.id + '/' + row.id_drvz ;
-                        }
-                        if(row.tipo == 4){
-                            link_edit ='<?= site_url('derivacionA31/Usuario1Espera') ?>/' + row.id + '/' + row.id_drvz;
-                        } 
-                        if(row.tipo == 5){
-                            link_edit ='<?= site_url('derivacionA32/Usuario1Espera') ?>/' + row.id + '/' + row.id_drvz;
-                        }
-                        
-                        var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
-                        var edit_normal = '<a class="blue" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-pencil   bigger-130"></i></a>';
-                        
-                        //options_normal += show_details_normal + edit_normal + remove_normal;
-                        options_normal += edit_normal;
-                        options_normal += '</div>';
-                        
-                        var options_responsive = '<div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn   btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa  fa-caret-down icon-only bigger-120"></i></button><ul class="dropdown-menu dropdown-only-icon     dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">';
-                        var edit_responsive = '<li><a href="' + link_edit + '" class="tooltip-success" data-rel="tooltip"   title="Editar"><span class="green"><i class="ace-icon fa fa-search-square-o   bigger-120"></i></span></a></li>';
-                        //options_responsive += show_details_responsive + edit_responsive + remove_responsive;
-                        options_responsive += edit_responsive;
-                        options_responsive += '</ul></div></div>';
-                         
-                        return options_normal + options_responsive;
-                    }
-                }
-            ],
-            "order": [[ 5, "asc" ]],
-            "language": {
-                "url": "<?= base_url('assets/js/dataTable.spanish.json') ?>"
-            }
-        } );
-    };
-    
-  */
     $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
     
     myTable.buttons().container().appendTo( $('.tableTools-container') );
@@ -385,4 +269,12 @@ $(document).ready(function() {
         
 });
 
+</script>
+
+<script>
+    function addDaystoDate(date,days){
+        var res = new Date(date);
+        res.setDate(res.getDate() + days);
+        return res; 
+    }
 </script>

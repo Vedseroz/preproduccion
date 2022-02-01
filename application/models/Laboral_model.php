@@ -32,6 +32,12 @@ class Laboral_model extends General_model{
         $this->db->insert('juridica_laboral',$data);
     }
 
+    public function editar_monitorio($data){    //funcion que edita el dato que recibe a partir del id, buscandolo en la tabla.
+        $this->db->get('juridica_laboral');
+        $this->db->where('id',$data['id']);
+        $this->db->update('juridica_laboral',$data);
+    }
+
 
     public function getbyid($id = null){
         $query = $this->db->query('SELECT * FROM juridica_laboral WHERE juridica_laboral.id = '. $id);

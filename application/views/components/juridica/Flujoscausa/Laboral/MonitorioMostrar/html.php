@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">Nombre del Demandante:</label>
-                    <input name="n_demandante" data-rel="tooltip" type="text" readonly="readonly" id="n_demandante" class="col-md-3" value="<?php echo $n_demandante ?>">
+                    <input name="n_demandante" data-rel="tooltip" type="text"  id="n_demandante" class="col-md-3" value="<?php echo $n_demandante ?>">
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">RUT del Demandante:</label>
-                    <input name="rut" data-rel="tooltip" type="text" id="rut" readonly="readonly" class="col-md-3" value="<?= $rut ?>">
+                    <input name="rut" data-rel="tooltip" type="text" id="rut"  class="col-md-3" value="<?= $rut ?>">
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="denunciante">RIT/ROL:</label>
-                    <input name="rol" data-rel="tooltip" type="text" id="rol" readonly="readonly" placeholder="" class="col-md-2" value="<?=  $rol; ?>">
+                    <input name="rol" data-rel="tooltip" type="text" id="rol"  placeholder="" class="col-md-2" value="<?=  $rol; ?>">
                 </div>
             </div>
 

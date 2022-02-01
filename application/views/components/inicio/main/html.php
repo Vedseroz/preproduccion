@@ -202,35 +202,3 @@
    	</a>
 	</div>
 </div>
-<!--
-<div class="row">
-	<div class="col-sm-12">
-		<div class="widget-box">
-			<div class="widget-header widget-header-flat">
-				<h4 class="widget-title">Plataforma ProcessMaker</h4>
-			</div>
-	
-			<div class="widget-body">
-				<div class="widget-main">
-					<div class="row">
-						<div class="col-xs-12">
-							<ul class="list-unstyled spaced2">
-								<li class="text-warning bigger-110 orange">
-									<i class="ace-icon fa fa-exclamation-triangle"></i>
-										Estimados.<br/>
-										El error que impide enviar casos por ProcessMaker ya fue solucionado. favor cerrar y abrir process para crear/enviar, de mantenerce los prolemas contactarce al correo jortizd@cmvalparaiso.cl
-								</li>
-								<li class="text-warning bigger-110 orange">
-										ATTE. Jorge Ortiz / jortizd@cmvalparaiso.cl
-								</li>
-								<li class="text-warning bigger-110 orange">
-										Saludos Cordiales.
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>

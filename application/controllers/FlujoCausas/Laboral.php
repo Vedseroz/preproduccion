@@ -24,6 +24,7 @@ class Laboral extends CI_Controller{
 
         //errores
         $this->data['errors'] = array();
+        $this->data['title'] = 'FALSE';
 
     }
 
@@ -115,19 +116,22 @@ class Laboral extends CI_Controller{
     }
 
     //edita la información que recibe
-    public function editar_monitorio($id = null){
+    public function editar_monitorio($id = null){  //recibe el id a partir del URI, desde la tabla del inicio.
+        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
+        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
 
         $datos = array(
-            'id' => $id,            
-            'n_demandante' => $this->input->post('n_demandante'),
+            'id' => $id, 
+            'n_demandante' => $this->input->post('n_demandante'),       
             'rut' => $this->input->post('rut'),
-            'rol' => $this->input->post('rol'),
-            'fecha_not' => $this->input->post('fecha_not'),
-            'tribunal' => $this->input->post('tribunal'),
-            'fecha_res' => $this->input->post('fecha_res'),
+            'rol' => $this->input->post('rol'),   
+            'fecha_res' => $this->input->post('fecha_res')
         );
 
-        var_dump($datos);
+        $this->Laboral_model->editar_monitorio($datos);
+        redirect(site_url('inicio/index'));
     }
 
 
