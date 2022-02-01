@@ -1,1 +1,0 @@
-<textarea name="editor1"></textarea>

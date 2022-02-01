@@ -115,16 +115,10 @@ class Laboral extends CI_Controller{
     }
 
     //edita la información que recibe
-    public function editar_monitorio(){
-
-        //se obtiene el id desde el url del sitio.
-        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-
+    public function editar_monitorio($id = null){
 
         $datos = array(
-            'id' => $this->$data['id'],
-            'url' => $actual_link,
+            'id' => $id,            
             'n_demandante' => $this->input->post('n_demandante'),
             'rut' => $this->input->post('rut'),
             'rol' => $this->input->post('rol'),

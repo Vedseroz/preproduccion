@@ -3,7 +3,19 @@
     <div class="col-xs-12">
         
         <h1>Actualizar información de Denuncia: </h1>
-        <?= form_open_multipart(site_url('FlujoCausas/Laboral/editar_monitorio'), 'class="form-horizontal" role="form" method="POST"') ?>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+        <?php 
+            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; //obtiene el url actual
+            $array = parse_url($actual_link);
+            $aux = $array['path'];
+            $exploded = explode("/", $aux);                             //esto es principalmente para obtener el id, que seria le ultimo parametro del url.
+            $actual_id = $exploded[6];
+        ?>
+        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+
+        <?= form_open_multipart(site_url('FlujoCausas/Laboral/editar_monitorio/'. $actual_id), 'class="form-horizontal" role="form" method="POST"') ?>
 
 
            <br>
