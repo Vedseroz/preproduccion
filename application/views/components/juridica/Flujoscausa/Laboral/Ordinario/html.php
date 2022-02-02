@@ -1,12 +1,6 @@
 
 <?php defined('BASEPATH') OR exit ('No direct script access allowed')?>
 
-<div class="row linea-separadora">
-    <div class="col-lg-12">
-        <hr size="8px" color="black" />
-    </div>
-</div>
-
 <div>
     <div class="offset-ms-4 col-sm-6">
     <?= validation_errors() ?>

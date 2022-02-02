@@ -54,8 +54,8 @@ $(document).ready(function() {
                 "visible": true
             }, 
             {
-                "title": 'Fecha de Respuesta(?) ',
-                "data": 'fecha_res',
+                "title": 'Fecha de Notificacion ',
+                "data": 'fecha_not',
                 "searchable": false,
                 "targets": 4,
                 "visible": true,
@@ -96,7 +96,10 @@ $(document).ready(function() {
                 "targets": 7,
                 "render": function ( data, type, row ) {
                     if(row.etapa == 1){
-                        return addDaystoDate(row.fecha_res,10);
+                        return addDaystoDate(row.fecha_not,10);
+                    }
+                    if(row.etapa == 2){
+                        return row.fecha_res;
                     }
                 }
                 
@@ -130,15 +133,7 @@ $(document).ready(function() {
                     return options_normal + options_responsive;
                 }
             },
-            {
-                "title": 'fecha_not',
-                "data": 'fecha_not',
-                "searchable": false,
-                "targets": 9,
-                "visible": false,
-                
-                
-            }
+
         ],
         "order": [[ 0, "asc" ]],
         "language": {
@@ -269,12 +264,24 @@ $(document).ready(function() {
         
 });
 
-</script>
-
-<script>
     function addDaystoDate(date,days){
         var res = new Date(date);
-        res.setDate(res.getDate() + days);
-        return res; 
+        res.setDate(res.getDate() + days);          //calcula la suma de dias para la siguiente etapa
+        after_date = res;
+        year = after_date.getFullYear();            //saca el año
+
+        month = after_date.getMonth()+01;            //saca el mes
+        if(month<10){
+            month = "0"+month;
+        } 
+
+        aux = after_date.toString();                //a partir del formato original de DATE, saca el 3 caracter de la cadena. 
+        exploded = aux.split(' ');
+        day = exploded[2];                          //finalmente este es el dia 
+
+        new_date = day + "-" + month + "-" + year;      //guarda el string en la variable y lo devuelve a la tabla. 
+        console.log(new_date);
+
+        return new_date;
     }
 </script>

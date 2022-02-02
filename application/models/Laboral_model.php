@@ -53,6 +53,7 @@ class Laboral_model extends General_model{
             $data['tipo'] = $value->tipo;
             $data['tribunal'] = $value->tribunal;
             $data['id_asignado'] = $value->id_asignado;
+            $data['etapa'] = $value->etapa;
             $data['archivo'] = $value->archivo;
         }
         return $data;

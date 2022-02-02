@@ -25,6 +25,7 @@ class Laboral extends CI_Controller{
         //errores
         $this->data['errors'] = array();
         $this->data['title'] = 'FALSE';
+        $this->data['subtitle'] = 'Sin titulo';
 
     }
 
@@ -127,20 +128,26 @@ class Laboral extends CI_Controller{
             'n_demandante' => $this->input->post('n_demandante'),       
             'rut' => $this->input->post('rut'),
             'rol' => $this->input->post('rol'),   
-            'fecha_res' => $this->input->post('fecha_res')
+            'fecha_res' => $this->input->post('fecha_res'),
+            'etapa' => 2,
         );
 
+        
         $this->Laboral_model->editar_monitorio($datos);
         redirect(site_url('inicio/index'));
+
     }
-
-
 
     //mostrar informacion en inputs.
     public function status(){
        $this->view_handler->view('juridica/','status'); 
     }
     
+    public function download($id = null){                   //funcion para descargar el documento. 
+        $nombre = $this->Laboral_model->getbyid($id);
+        $filepath = './files/'.$nombre;
+        force_download($file_path,NULL);
+    }
 
 
 
