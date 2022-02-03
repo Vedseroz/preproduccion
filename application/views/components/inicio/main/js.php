@@ -113,7 +113,7 @@ $(document).ready(function() {
                 "render": function ( data, type, row ) {
                     var link_edit = '*';
                     if(row.etapa == 1) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
-                    if(row.etapa == 2) link_edit = '<?= site_url('EduciacionTercero/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
+                    if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id + '/' + row.id_ctrz;
                     if(row.etapa == 3) link_edit = '<?= site_url('EduciacionCuarta/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     if(row.etapa == 4) link_edit = '<?= site_url('EduciacionQuinto/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     

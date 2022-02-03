@@ -132,10 +132,19 @@ class Laboral extends CI_Controller{
             'etapa' => 2,
         );
 
-        
         $this->Laboral_model->editar_monitorio($datos);
         redirect(site_url('inicio/index'));
 
+    }
+
+    //funcion para finalizar un caso.
+    public function finalizar_monitorio($id = null){
+        $datos = array(
+            'resolucion' => 0,
+        );
+
+        $this->Laboral_model->editar_monitorio($datos);
+        redirect(site_url('inicio/index'));
     }
 
     //mostrar informacion en inputs.

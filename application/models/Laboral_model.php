@@ -7,7 +7,7 @@ class Laboral_model extends General_model{
         parent::__construct($table); 
     }
 
-     public function datatable($id_curso = null) {
+     public function datatable($id_curso = null) {                  //inicializa la base de datos
     	$table = 'juridica_laboral';
     	$primaryKey = 'juridica_laboral.id';
 		$columns = array(
@@ -21,7 +21,8 @@ class Laboral_model extends General_model{
             array( 'db' => 'juridica_laboral.fecha_prep', 'dt' => 'fecha_prep' ),
             array( 'db' => 'juridica_laboral.fecha_juicio', 'dt' => 'fecha_juicio' ),
             array( 'db' =>'juridica_laboral.etapa', 'dt' => 'etapa'),
-            array('db' =>'juridica_laboral.tipo','dt' => 'tipo')
+            array('db' =>'juridica_laboral.tipo','dt' => 'tipo'),
+            array('db' =>'juridica_laboral.resolucion','dt' => 'resolucion'),
 		);
     	$data = $this->data_tables->complex($_POST , $table, $primaryKey, $columns);
         return $data;
@@ -39,7 +40,7 @@ class Laboral_model extends General_model{
     }
 
 
-    public function getbyid($id = null){
+    public function getbyid($id = null){                    //devuelve la columna de la tabla de datos
         $query = $this->db->query('SELECT * FROM juridica_laboral WHERE juridica_laboral.id = '. $id);
         foreach($query->result() as $value){
             $data['id'] = $value->id;
@@ -55,6 +56,7 @@ class Laboral_model extends General_model{
             $data['id_asignado'] = $value->id_asignado;
             $data['etapa'] = $value->etapa;
             $data['archivo'] = $value->archivo;
+            $data['resolucion'] = $value->resolucion;
         }
         return $data;
     }

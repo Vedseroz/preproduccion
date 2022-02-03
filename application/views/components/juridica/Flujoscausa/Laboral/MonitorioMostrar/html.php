@@ -113,6 +113,14 @@
                     <i class="ace-icon fa fa-times   bigger-110"></i>
                     Cancelar
                 </a>
+
+                <?php if($etapa >= 2) :?>
+                <a href="<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/" . $this->uri->segment(4));?>" class="btn btn-danger" type="reset">
+                    <i class="ace-icon fa fa-times   bigger-110"></i>
+                    Finalizar Causa
+                </a>
+                <?php endif;?>
+
             </div>
 
         </form>
