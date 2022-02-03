@@ -21,7 +21,6 @@ $(document).ready(function() {
     .DataTable( {
         "bAutoWidth": false,
         "processing": true,
-        "serverSide": true,
         "ajax": {
             "url": "<?= site_url('Inicio/getCausas') ?>",
             "type": "POST"
@@ -73,6 +72,8 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 5,
                 "render": function ( data, type, row ) {
+                    if (row.etapa == 0 && row.resolucion == 1) return 'ACEPTADA';
+                    if (row.etapa == 0 && row.resolucion == 0) return 'RECHAZADA';
                     if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
                     if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
                     if(row.etapa == 3) return 'Formulación de Cargo -> Dictamen';         //laboral ordinario
@@ -113,7 +114,7 @@ $(document).ready(function() {
                 "render": function ( data, type, row ) {
                     var link_edit = '*';
                     if(row.etapa == 1) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
-                    if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id + '/' + row.id_ctrz;
+                    if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 3) link_edit = '<?= site_url('EduciacionCuarta/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     if(row.etapa == 4) link_edit = '<?= site_url('EduciacionQuinto/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     

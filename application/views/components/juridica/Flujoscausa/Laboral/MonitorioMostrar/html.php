@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">RUT del Demandante:</label>
-                    <input name="rut" data-rel="tooltip" type="text" id="rut"  class="col-md-3" value="<?= $rut ?>">
+                    <input name="rut" data-rel="tooltip" type="text" id="rut" readonly="<?php if($etapa==0){ echo 'readonly'; }?>"  class="col-md-3" value="<?= $rut ?>">
                 </div>
             </div>
 
@@ -115,11 +115,31 @@
                 </a>
 
                 <?php if($etapa >= 2) :?>
-                <a href="<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/" . $this->uri->segment(4));?>" class="btn btn-danger" type="reset">
-                    <i class="ace-icon fa fa-times   bigger-110"></i>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
                     Finalizar Causa
-                </a>
-                <?php endif;?>
+                </button>
+
+            <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Advertencia:</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+      </div>
+            <div class="modal-body">
+                <h4>¿En qué estado desea finalizar la causa?</h4>       
+            </div>
+            <div class="modal-footer">
+            <a type="button" class="btn btn-success" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'1')?> >ACEPTADA</a> <!-- 1 en Aceptada, 0 es rechazada-->
+            <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'0')?> >RECHAZADA</a>
+            </div>
+            </div>
+        </div>
+    </div>                
+    <?php endif;?>
 
             </div>
 
