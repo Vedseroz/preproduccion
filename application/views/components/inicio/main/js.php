@@ -27,7 +27,7 @@ $(document).ready(function() {
         },
         "columnDefs": [
             {
-                "title": 'ID de Procedimiento',
+                "title": 'ID de Causa',
                 "data": 'id',
                 "targets": 0,
                 "searchable": false,
@@ -96,11 +96,13 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 7,
                 "render": function ( data, type, row ) {
+                    if (row.etapa == 0 && row.resolucion == 1) return 'Terminado';
+                    if (row.etapa == 0 && row.resolucion == 0) return 'Terminado';
                     if(row.etapa == 1){
                         return addDaystoDate(row.fecha_not,10);
                     }
                     if(row.etapa == 2){
-                        return row.fecha_res;
+                        return row.fecha_res.split("-").reverse().join("-");
                     }
                 }
                 
@@ -113,9 +115,10 @@ $(document).ready(function() {
                 "orderable": false,
                 "render": function ( data, type, row ) {
                     var link_edit = '*';
+                    if(row.etapa == 0) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 1) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
-                    if(row.etapa == 3) link_edit = '<?= site_url('EduciacionCuarta/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
+                    if(row.etapa == 3) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 4) link_edit = '<?= site_url('EduciacionQuinto/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';

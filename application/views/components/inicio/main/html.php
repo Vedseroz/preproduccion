@@ -147,6 +147,8 @@
 
 	<div class="clearfix center col-xs-12"></div>
 
+	<h3>Flujo de Causas</h3>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="clearfix">

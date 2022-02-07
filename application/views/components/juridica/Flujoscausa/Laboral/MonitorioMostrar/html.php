@@ -10,14 +10,13 @@
         
         <?= form_open_multipart(site_url('FlujoCausas/Laboral/editar_monitorio/'. $this->uri->segment(4)), 'class="form-horizontal" role="form" method="POST"') ?>
 
-
            <br>
             
             <!--Nombre del Demandante-->
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">Nombre del Demandante:</label>
-                    <input name="n_demandante" data-rel="tooltip" type="text"  id="n_demandante" class="col-md-3" value="<?php echo $n_demandante ?>">
+                    <input name="n_demandante" data-rel="tooltip" type="text"  id="n_demandante" class="col-md-3" <?php if($denuncia['etapa']==0){ echo 'readonly'; }?> value="<?php echo $denuncia['n_demandante'] ?>">
                 </div>
             </div>
 
@@ -27,7 +26,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="titulo">RUT del Demandante:</label>
-                    <input name="rut" data-rel="tooltip" type="text" id="rut" readonly="<?php if($etapa==0){ echo 'readonly'; }?>"  class="col-md-3" value="<?= $rut ?>">
+                    <input name="rut" data-rel="tooltip" type="text" id="rut" <?php if($denuncia['etapa']==0){ echo 'readonly';}?>  class="col-md-3" value="<?= $denuncia['rut'] ?>">
                 </div>
             </div>
 
@@ -37,7 +36,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="denunciante">RIT/ROL:</label>
-                    <input name="rol" data-rel="tooltip" type="text" id="rol"  placeholder="" class="col-md-2" value="<?=  $rol; ?>">
+                    <input name="rol" data-rel="tooltip" type="text" id="rol"  <?php if($denuncia['etapa']== '0'){ echo 'readonly'; }?> placeholder="" class="col-md-2" value="<?=  $denuncia['rol']; ?>">
                 </div>
             </div>
 
@@ -47,7 +46,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fecha_not">Fecha de Notificación:</label>
-                    <input name="fecha_not" data-rel="tooltip" type="date" id="fecha_not" readonly="readonly" placeholder="" readonly="readonly" class="col-md-2" value="<?= $fecha_not; ?>">
+                    <input name="fecha_not" data-rel="tooltip" type="date" id="fecha_not" readonly="readonly" placeholder="" readonly="readonly" class="col-md-2" value="<?= $denuncia['fecha_not']; ?>">
                 </div>
             </div>
 
@@ -61,7 +60,7 @@
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="tribunal">Tribunal:</label>
                     <select class="chosen-select col-md-2" readonly="readonly" name="tribunal" value="" onchange="" required>
-                        <option role="placeholder" value="<?= $tribunal ;?>"><?= "TRIBUNAL".' '.$tribunal;?></option>
+                        <option role="placeholder" readonly="readonly" value="<?= $denuncia['tribunal'] ;?>"><?= "TRIBUNAL".' '.$denuncia['tribunal'];?></option>
                     </select>
                 </div>
             </div>
@@ -72,7 +71,7 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
-                <input name="fecha_res" data-rel="tooltip" type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?= $fecha_res?>">
+                <input name="fecha_res" data-rel="tooltip" <?php if($denuncia['etapa']==0){ echo 'readonly'; }?> type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_res']?>">
                 </div>
             </div>
 
@@ -91,7 +90,8 @@
                                 <div class="widget-main">
                                     <div id="documento" class="form-group">
                                         <div class="col-xs-12">
-                                            <input name="documento_fl" type="text" id="id-input-file_fl" readonly="readonly" value="<?= $archivo;?>" />
+                                            <input name="documento_fl" type="text" id="id-input-file_fl" readonly="readonly" value="<?= $denuncia['archivo'];?>" />
+                                            <a href="<?=site_url('FlujoCausas/Laboral/download/'.$this->uri->segment(4))?>" class="btn btn-primary">Descargar Archivo</a>
                                         </div>
                                         <br>
                                     </div>
@@ -105,6 +105,7 @@
 
 
             <div class="clearfix form-actions center">
+                <?php if($denuncia['etapa'] != 0) :?>
                 <button class="btn btn-info" type="submit" value="upload">
                     <i class="ace-icon fa fa-check bigger-110"></i>
                     Editar
@@ -113,8 +114,17 @@
                     <i class="ace-icon fa fa-times   bigger-110"></i>
                     Cancelar
                 </a>
+                <?php endif;?>
+                
+                <?php if ($denuncia['etapa'] == 0) :?>
+                    <a href="<?= site_url("inicio/index")?>" class="btn btn-primary" type="reset">
+                    <i class="ace-icon fa fa-times   bigger-110"></i>
+                    Volver
+                </a>   
+                <?php endif;?>
 
-                <?php if($etapa >= 2) :?>
+
+                <?php if($denuncia['etapa'] >= 2) :?>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
                     Finalizar Causa
                 </button>

@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="tribunal">Tribunal:</label>
-                    <select class="chosen-select col-md-2" name="tribunal" value="" onchange="" required>
+                 <select class="chosen-select col-md-2" name="tribunal" value="" onchange="" required>
                         <option role="placeholder" value="">Seleccionar Tribunal</option>
                         <option role="placeholder" value="1">TRIBUNAL 1</option>
                         <option role="placeholder" value="2">TRIBUNAL 2</option>

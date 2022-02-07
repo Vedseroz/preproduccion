@@ -21,6 +21,7 @@ class Laboral extends CI_Controller{
         );
         $this->load->helper('array');
         $this->load->helper('form');
+        $this->load->helper('download');
 
         //errores
         $this->data['errors'] = array();
@@ -72,6 +73,8 @@ class Laboral extends CI_Controller{
         $rol = $this->input->post('rol');
         $tipo = explode("-",$rol);
         $n_archivo = $this->name();  //nombre del archivo
+        $rut = $this->input->post('rut');
+        $rol = $this->input->post('rol');
 
         $datos = array(
             'n_demandante' => $this->input->post('n_demandante'),
@@ -89,6 +92,7 @@ class Laboral extends CI_Controller{
         $config['upload_path'] = './files/juridica/LaboralM/';
         $config['allowed_types'] = '*';
         $config['overwrite'] = true;
+        $config['file_name'] = $rut.'_'.$rol.'_'.$n_archivo;
         //subida del archivo
         
         if($this->upload->initialize($config)){
@@ -112,8 +116,17 @@ class Laboral extends CI_Controller{
 
     //mostrar los datos por el id de la fila
     public function mostrar_monitorio_id($id = null){
-        $data = $this->Laboral_model->getbyid($id);
-        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$data);
+        $this->data['title'] = 'FALSE';
+        $this->data['subtitle'] = 'Página en blanco';
+        $this->data['breadcrumb'] = array(
+            array(
+                'name' => 'Laboral Monitorio',
+                'link' => site_url('monitorio/index')
+            )
+        );
+        
+        $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
     }
 
     //edita la información que recibe
@@ -155,8 +168,9 @@ class Laboral extends CI_Controller{
     }
     
     public function download($id = null){                   //funcion para descargar el documento. 
-        $nombre = $this->Laboral_model->getbyid($id);
-        $filepath = './files/'.$nombre;
+        $fichero = $this->Laboral_model->getbyid($id);
+        $file_path = './files/juridica/LaboralM/'.$fichero['rut'].'_'.$fichero['rol'].'_'.$fichero['archivo'];
+        var_dump($file_path);
         force_download($file_path,NULL);
     }
 
