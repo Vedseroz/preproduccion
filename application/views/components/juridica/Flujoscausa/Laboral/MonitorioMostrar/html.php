@@ -67,14 +67,6 @@
 
             <br>
             
-
-            <div class="row">
-                <div class="form-group">
-                <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
-                <input name="fecha_res" data-rel="tooltip" <?php if($denuncia['etapa']==0){ echo 'readonly'; }?> type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_res']?>">
-                </div>
-            </div>
-
             <br>
 
             <!--Subir archivo a carpeta local-->
@@ -102,6 +94,17 @@
                 </div>
             </div>
 
+            <br>
+            <br>
+
+            <div class="row">
+                <div class="form-group">
+                <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
+                <input name="fecha_res" data-rel="tooltip" <?php if($denuncia['etapa']==0){ echo 'readonly'; }?> type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_res']?>">
+                </div>
+            </div>
+
+            <br>
 
 
             <div class="clearfix form-actions center">
@@ -143,7 +146,7 @@
                 <h4>¿En qué estado desea finalizar la causa?</h4>       
             </div>
             <div class="modal-footer">
-            <a type="button" class="btn btn-success" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'1')?> >ACEPTADA</a> <!-- 1 en Aceptada, 0 es rechazada-->
+            <a type="button" class="btn btn-success" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'1')?> >ACEPTADA</a> <!-- 1 es Aceptada, 0 es rechazada-->
             <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'0')?> >RECHAZADA</a>
             </div>
             </div>

@@ -164,7 +164,42 @@
         </div>
     
     </div>
-</div> 	
+</div> 
+
+
+<!--MODAL-------------------------------------------------------------------------------------------------->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Reasignar a un nuevo usuario:</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+      </div>
+            <div class="modal-body">
+				<?php
+				$data = $this->Laboral_model->getUsuarios();
+                echo '<select name="usuarios" id="usuarios">';
+				echo '<option value="'.$data['id'].'">'.$data['first_name'].' '.$data['last_name'].'</option>'; 
+				echo '</select>';       
+				?>
+            </div>
+            <div class="modal-footer"> 
+            <a type="button" class="btn btn-primary" href=<?= site_url("")?> >Asignar</a>
+            </div>
+            </div>
+        </div>
+    </div>                
+
+
+
+
+
+<!--------------------------------------------------------------------------------------------------------->
+
+
 
 
 <?php endif;?>

@@ -72,8 +72,8 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 5,
                 "render": function ( data, type, row ) {
-                    if (row.etapa == 0 && row.resolucion == 1) return 'ACEPTADA';
-                    if (row.etapa == 0 && row.resolucion == 0) return 'RECHAZADA';
+                    if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-primary">'+ 'ACOGIDA' +'</span>';
+                    if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-primary">' + 'RECHAZADA'+'</span>';
                     if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
                     if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
                     if(row.etapa == 3) return 'Formulación de Cargo -> Dictamen';         //laboral ordinario
@@ -96,8 +96,8 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 7,
                 "render": function ( data, type, row ) {
-                    if (row.etapa == 0 && row.resolucion == 1) return 'Terminado';
-                    if (row.etapa == 0 && row.resolucion == 0) return 'Terminado';
+                    if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-success">'+ 'Terminado' + '</span>';
+                    if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-success">'+ 'Terminado' + '</span>';
                     if(row.etapa == 1){
                         return addDaystoDate(row.fecha_not,10);
                     }
@@ -123,6 +123,30 @@ $(document).ready(function() {
                     
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
                     var edit_normal = '<a class="blue" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+
+                    //options_normal += show_details_normal + edit_normal + remove_normal;
+                    options_normal += edit_normal;
+                    options_normal += '</div>';
+                    
+                    var options_responsive = '<div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button><ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">';
+                    var edit_responsive = '<li><a href="' + link_edit + '" class="tooltip-success" data-rel="tooltip" title="Editar"><span class="green"><i class="ace-icon fa fa-search-square-o bigger-120"></i></span></a></li>';
+                    //options_responsive += show_details_responsive + edit_responsive + remove_responsive;
+                    options_responsive += edit_responsive;
+                    options_responsive += '</ul></div></div>';
+                     
+                    return options_normal + options_responsive;
+                }
+            },
+            {
+                "title": 'Asignar',
+                "data": null,
+                "targets": 9,
+                "searchable": false,
+                "orderable": false,
+                "render": function ( data, type, row ) {
+                    var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/'
+                    var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
+                    var edit_normal = '<a class="blue" data-toggle="modal" data-target="#myModal" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-user-plus bigger-130"></i></a>';
 
                     //options_normal += show_details_normal + edit_normal + remove_normal;
                     options_normal += edit_normal;

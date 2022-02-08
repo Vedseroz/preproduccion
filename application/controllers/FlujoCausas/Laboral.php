@@ -105,6 +105,9 @@ class Laboral extends CI_Controller{
         //inserta en el model el array
 
         $this->Laboral_model->insertar_monitorio($datos);
+
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
         
         $this->status();
         
@@ -159,19 +162,28 @@ class Laboral extends CI_Controller{
         );
 
         $this->Laboral_model->editar_monitorio($datos);
+        
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+        
         redirect(site_url('inicio/index'));
     }
 
     //mostrar informacion en inputs.
     public function status(){
-       $this->view_handler->view('juridica/','status'); 
+       $this->view_handler->view('juridica/','status',$this->data); 
     }
     
     public function download($id = null){                   //funcion para descargar el documento. 
         $fichero = $this->Laboral_model->getbyid($id);
         $file_path = './files/juridica/LaboralM/'.$fichero['rut'].'_'.$fichero['rol'].'_'.$fichero['archivo'];
-        var_dump($file_path);
+
+        if($fichero['archivo'] == NULL){
+            redirect(site_url('inicio/index'));
+        }
+
         force_download($file_path,NULL);
+        redirect(site_url('inicio/index'));
     }
 
 

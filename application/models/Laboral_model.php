@@ -39,6 +39,12 @@ class Laboral_model extends General_model{
         $this->db->update('juridica_laboral',$data);
     }
 
+    public function getUsuarios(){
+        $query = $this->db->query('SELECT * FROM abogados');
+        $data = $query->result();
+        return $data;
+    }
+
 
     public function getbyid($id = null){                    //devuelve la columna de la tabla de datos
         $query = $this->db->query('SELECT * FROM juridica_laboral WHERE juridica_laboral.id = '. $id);
@@ -61,7 +67,44 @@ class Laboral_model extends General_model{
         return $data;
     }
 
+    public function getMail($id = null){
+        $query = $this->db->query('SELECT * FROM users WHERE users.id = '. $id);
+        foreach($query->result() as $value){
+            $data['email'] = $value->email;
+            $data['nombre'] = $value->first_name .' '. $value->last_name; 
+        }
+        return $data;
+    }
 
+
+    public function sendMail($nombre = null, $email = null){
+        $this->load->library('PHPMailer_Lib');
+        $mail = $this->phpmailer_lib->load();		
+		$mail->isSMTP();
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = 465;
+		$mail->SMTPSecure = 'ssl';
+		$mail->SMTPOptions = array(
+            'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+            )
+        );
+		$mail->SMTPAuth = true;
+		$mail->Username = "notificaciones.td@cmvalparaiso.cl";
+		$mail->Password = "td456CMV";
+		$mail->setFrom('notificaciones.td@cmvalparaiso.cl', 'Notificación TD');
+		$mail->addAddress($email, $nombre);
+		$mail->Subject = 'Información ingresada';
+		$mail->MsgHTML("Datos modificados");
+		$mail->CharSet = 'UTF-8';
+		
+		if(!empty($subject)){
+			$mail->Subject = $subject;
+		}
+		return $mail->send();
+	}
 
 
 }
