@@ -1,4 +1,3 @@
-
 <?php if (!$this->ion_auth->in_group(array(22,23))): ?>  <!--Si pertenece a juridica, devuelve falso y no entra al if -->
 
 <div class="row">
@@ -177,19 +176,26 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-			</div>
+      		</div>
+			<?php var_dump($asignado); ?>
+
             <div class="modal-body">
-				<?php
-				$data = $this->Laboral_model->getUsuarios();
-                echo '<select name="usuarios" id="usuarios">';
-				echo '<option value="'.$data['id'].'">'.$data['first_name'].' '.$data['last_name'].'</option>'; 
-				echo '</select>';       
-				?>
+				<select name="" id="">
+					<option value=""></option>
+				</select>
             </div>
+
+			<?php  endfor; ?>
+
             <div class="modal-footer"> 
-            <a type="button" class="btn btn-primary" href=<?= site_url("")?> >Asignar</a> 
-</div>
-</div>                
+            <a type="button" class="btn btn-primary" href=<?= site_url("")?> >Asignar</a>
+            </div>
+            </div>
+        </div>
+    </div>                
+
+
+
 
 
 <!--------------------------------------------------------------------------------------------------------->

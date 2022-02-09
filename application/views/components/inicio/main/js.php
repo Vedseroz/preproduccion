@@ -312,4 +312,8 @@ $(document).ready(function() {
 
         return new_date;
     }
+
+$('#myModal').modal('hide');
+
+
 </script>
