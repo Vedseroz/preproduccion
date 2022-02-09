@@ -177,7 +177,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-      </div>
+			</div>
             <div class="modal-body">
 				<?php
 				$data = $this->Laboral_model->getUsuarios();
@@ -187,14 +187,9 @@
 				?>
             </div>
             <div class="modal-footer"> 
-            <a type="button" class="btn btn-primary" href=<?= site_url("")?> >Asignar</a>
-            </div>
-            </div>
-        </div>
-    </div>                
-
-
-
+            <a type="button" class="btn btn-primary" href=<?= site_url("")?> >Asignar</a> 
+</div>
+</div>                
 
 
 <!--------------------------------------------------------------------------------------------------------->

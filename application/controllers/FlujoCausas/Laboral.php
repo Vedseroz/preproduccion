@@ -165,7 +165,7 @@ class Laboral extends CI_Controller{
         
         $mail = $this->Laboral_model->getMail(96);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
-        
+
         redirect(site_url('inicio/index'));
     }
 
@@ -186,6 +186,9 @@ class Laboral extends CI_Controller{
         redirect(site_url('inicio/index'));
     }
 
+    public function asignar_usuario(){
+        
+    }
 
 
 
