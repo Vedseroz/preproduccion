@@ -35,7 +35,7 @@ class Laboral extends CI_Controller{
     }
 
     public function ordinario(){
-         $this->data['breadcrumb'] = array(
+        $this->data['breadcrumb'] = array(
             array(
                 'name' => 'Laboral Ordinario',
                 'link' => site_url('ordinario/index')
@@ -171,7 +171,7 @@ class Laboral extends CI_Controller{
 
     //mostrar informacion en inputs.
     public function status(){
-       $this->view_handler->view('juridica/','status',$this->data); 
+        $this->view_handler->view('juridica/','status',$this->data); 
     }
     
     public function download($id = null){                   //funcion para descargar el documento. 
@@ -186,8 +186,8 @@ class Laboral extends CI_Controller{
         redirect(site_url('inicio/index'));
     }
 
-    public function asignar_usuario(){
-        
+    public function asignar_usuario($id = null){
+            var_dump($id); 
     }
 
 

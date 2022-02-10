@@ -133,7 +133,7 @@ $(document).ready(function() {
                     //options_responsive += show_details_responsive + edit_responsive + remove_responsive;
                     options_responsive += edit_responsive;
                     options_responsive += '</ul></div></div>';
-                     
+                    
                     return options_normal + options_responsive;
                 }
             },
@@ -144,9 +144,12 @@ $(document).ready(function() {
                 "searchable": false,
                 "orderable": false,
                 "render": function ( data, type, row ) {
-                    var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/'
+                    var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/' + row.id;
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
-                    var edit_normal = '<a class="blue" data-toggle="modal" data-target="#myModal" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-user-plus bigger-130"></i></a>';
+                    var parametros = `
+                        ${row.ID}`;
+
+                    var edit_normal = "<button class='blue' title='Editar' onclick='cargarDatos(" + parametros + ")' data-toggle='modal' data-target='#editModal'>Editar</button>";
 
                     //options_normal += show_details_normal + edit_normal + remove_normal;
                     options_normal += edit_normal;
@@ -157,7 +160,8 @@ $(document).ready(function() {
                     //options_responsive += show_details_responsive + edit_responsive + remove_responsive;
                     options_responsive += edit_responsive;
                     options_responsive += '</ul></div></div>';
-                     
+                    
+                    
                     return options_normal + options_responsive;
                 }
             },

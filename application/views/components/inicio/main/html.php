@@ -176,32 +176,26 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-      		</div>
-			<?php var_dump($asignado); ?>
-
+</div>
+			<?=form_open(NULL, 'id="Asignar" role"form"')?>
             <div class="modal-body">
-				<select name="" id="">
-					<option value=""></option>
-				</select>
-            </div>
-
-			<?php  endfor; ?>
+				<select name="asignado" id="asignado">
+					<?php foreach($asignado as $key=>$value): ?>
+					<option value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
+					<?php endforeach; ?>
+				</select> 
+					</div>
 
             <div class="modal-footer"> 
-            <a type="button" class="btn btn-primary" href=<?= site_url("")?> >Asignar</a>
+            <button type="submit" class="btn btn-primary" >Asignar</button>
             </div>
             </div>
+			</form>
         </div>
     </div>                
 
 
-
-
-
 <!--------------------------------------------------------------------------------------------------------->
-
-
-
 
 <?php endif;?>
 
