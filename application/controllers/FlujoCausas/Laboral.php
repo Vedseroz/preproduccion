@@ -187,7 +187,9 @@ class Laboral extends CI_Controller{
     }
 
     public function asignar_usuario($id = null){
-            var_dump($id); 
+            var_dump(current_url());
+            $asignado = $this->input->post('asignado');
+            var_dump($asignado); 
     }
 
 

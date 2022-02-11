@@ -176,18 +176,21 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-</div>
-			<?=form_open(NULL, 'id="Asignar" role"form"')?>
+</div>			
+			<?php form_open_multipart(site_url('FlujoCausas/Laboral/asignar_usuario'. <script>document.write(selected_id);</script>), 'id="Asignar" role"form"')?>
             <div class="modal-body">
 				<select name="asignado" id="asignado">
 					<?php foreach($asignado as $key=>$value): ?>
-					<option value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
+					<option id="inputid" onch value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
 					<?php endforeach; ?>
 				</select> 
-					</div>
+
+				<p id="show"></p>
+				<p id="prueba"></p>
+			</div>
 
             <div class="modal-footer"> 
-            <button type="submit" class="btn btn-primary" >Asignar</button>
+            <button id="asignarButton" type="submit" class="btn btn-primary">Asignar</button>
             </div>
             </div>
 			</form>

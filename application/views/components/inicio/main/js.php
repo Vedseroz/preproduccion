@@ -144,25 +144,21 @@ $(document).ready(function() {
                 "searchable": false,
                 "orderable": false,
                 "render": function ( data, type, row ) {
-                    var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/' + row.id;
+                    var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/'+ row.id;
+                    var selected_id = row.id;
+
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
-                    var parametros = `
-                        ${row.ID}`;
-
-                    var edit_normal = "<button class='blue' title='Editar' onclick='cargarDatos(" + parametros + ")' data-toggle='modal' data-target='#editModal'>Editar</button>";
-
+                    
+                    var edit_normal = "<a href='" + link_edit + "'data-id='"+row.id+"' class='blue' data-toggle='modal' data-target='#myModal'><i class='fa fa-user-plus' aria-hidden='true'></i></a>";
+                    
                     //options_normal += show_details_normal + edit_normal + remove_normal;
                     options_normal += edit_normal;
                     options_normal += '</div>';
-                    
-                    var options_responsive = '<div class="hidden-md hidden-lg"><div class="inline pos-rel"><button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button><ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">';
-                    var edit_responsive = '<li><a href="' + link_edit + '" class="tooltip-success" data-rel="tooltip" title="Editar"><span class="green"><i class="ace-icon fa fa-search-square-o bigger-120"></i></span></a></li>';
-                    //options_responsive += show_details_responsive + edit_responsive + remove_responsive;
-                    options_responsive += edit_responsive;
-                    options_responsive += '</ul></div></div>';
-                    
-                    
-                    return options_normal + options_responsive;
+
+
+                    return options_normal;
+
+                
                 }
             },
 
@@ -172,6 +168,22 @@ $(document).ready(function() {
             "url": "<?= base_url('assets/js/dataTable.spanish.json') ?>"
         }
     } );
+
+    $('#myModal').modal('hide');
+
+
+    /*$('#myModal').on('show.bs.modal', function(event){
+        var $button = event.relatedTarget;    
+        
+        var id = button.data('id');
+        console.log(id);
+        var modal = $(this);
+        
+        modal.find('.delete-modal-codigo').text(nombre);
+        modal.find('#deleteButton').attr('onclick',"btnRemove("+id+")");
+        
+        });*/
+
 
     $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
     
@@ -312,12 +324,11 @@ $(document).ready(function() {
         day = exploded[2];                          //finalmente este es el dia 
 
         new_date = day + "-" + month + "-" + year;      //guarda el string en la variable y lo devuelve a la tabla. 
-        console.log(new_date);
+        
 
         return new_date;
     }
 
-$('#myModal').modal('hide');
 
 
 </script>

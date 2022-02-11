@@ -132,4 +132,10 @@
 		background-image: linear-gradient(to bottom,#FFF 0,#EEE 100%);
 		color: #669FC7;
 	}
+
+    #asignarbutton {
+        color:transparent;
+        background-color:transparent;
+        border-color:transparent;
+    }
 </style>
