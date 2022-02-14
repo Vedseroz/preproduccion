@@ -144,18 +144,17 @@ $(document).ready(function() {
                 "searchable": false,
                 "orderable": false,
                 "render": function ( data, type, row ) {
+
                     var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/'+ row.id;
-                    var selected_id = row.id;
 
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
                     
                     var edit_normal = "<a href='" + link_edit + "'data-id='"+row.id+"' class='blue' data-toggle='modal' data-target='#myModal'><i class='fa fa-user-plus' aria-hidden='true'></i></a>";
-                    
+
                     //options_normal += show_details_normal + edit_normal + remove_normal;
                     options_normal += edit_normal;
                     options_normal += '</div>';
-
-
+                    console.log(row.id);
                     return options_normal;
 
                 
