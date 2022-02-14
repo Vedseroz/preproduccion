@@ -12,5 +12,9 @@
 <script>
   $(document).ready(function() {
     $("#myModal").modal();
+    $("#asignar").modal();
   });
+
+  console.log($("#asignado").value);
+
 </script>

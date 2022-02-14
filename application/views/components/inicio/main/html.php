@@ -181,7 +181,8 @@
             <div class="modal-body">
 				<select name="asignado" id="asignado" >
 					<?php foreach($asignado as $key=>$value): ?>
-					<option id="inputid" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
+					<option id="asignado" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
+					<p><?=$value->id?></p>
 					<?php endforeach; ?>
 				</select> 
 

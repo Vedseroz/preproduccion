@@ -142,7 +142,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-      </div>
+        </div>
             <div class="modal-body">
                 <h4>¿En qué estado desea finalizar la causa?</h4>       
             </div>
@@ -155,9 +155,44 @@
     </div>                
     <?php endif;?>
 
-            </div>
+    <!--boton de asignar al-->
 
-        </form>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#asignar">
+        Reasignar usuario
+    </button>
+    </div>
+
+    </form>
+
+        <div class="modal fade" id="asignar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Reasignar a un nuevo usuario:</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>			
+			<?= form_open_multipart(site_url('FlujoCausas/Laboral/asignar_usuario/'. $this->uri->segment(4)), 'class="form-horizontal" role="form" method="POST"') ?>
+            <div class="modal-body">
+				<select name="asignado" id="asignado" >
+					<?php foreach($asignado as $key=>$value): ?>
+					<option id="inputid" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
+					<?php endforeach; ?>
+				</select> 
+
+			</div>
+
+            <div class="modal-footer"> 
+            <button id="asignar" type="submit" class="btn btn-primary">Asignar</button>
+            </div>
+            </div>
+			</form>
+        </div>
+    </div>                
+
+
+
     </div>
     </div>  
 </div>

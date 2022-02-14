@@ -31,7 +31,6 @@ class Laboral extends CI_Controller{
     }
 
     public function index(){
-
     }
 
     public function ordinario(){
@@ -55,7 +54,7 @@ class Laboral extends CI_Controller{
             )
         );
         $this->view_handler->view('juridica/Flujoscausa/Laboral','Monitorio',$this->data);
-
+        $this->data['asignado'] = $this->Laboral_model->getUsuarios();
 
     }
 
@@ -129,6 +128,7 @@ class Laboral extends CI_Controller{
         );
         
         $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
+        $this->data['asignado'] = $this->Laboral_model->getUsuarios();
         $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
     }
 
@@ -189,8 +189,7 @@ class Laboral extends CI_Controller{
     public function asignar_usuario($id = null){
             var_dump(current_url());
             var_dump($id);
-            $asignado = $this->input->post('asignado');
-            var_dump($asignado); 
+            var_dump($this->input->post('asignado'));
     }
 
 

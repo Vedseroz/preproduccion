@@ -52,7 +52,6 @@ class Inicio extends MY_Controller {
 		$this->data['tabla']   = $this->Inicio_model->verifyDatesFile(); //VERIFICAR Y MOSTRAR LOS FERIADOS
 		$this->data['noticias'] = $this->Noticias_model->cardsNoticias();//CARDS CON LAS NOTICIAS DEL AÑO
 		$this->data['resumen'] = $this->Inicio_model->getResumen();
-		$this->data['asignado'] = $this->Laboral_model->getUsuarios();
 		$this->view_handler->view('inicio', 'main', $this->data);
 		
 	}
