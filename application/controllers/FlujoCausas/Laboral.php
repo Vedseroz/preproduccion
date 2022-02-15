@@ -186,10 +186,10 @@ class Laboral extends CI_Controller{
         redirect(site_url('inicio/index'));
     }
 
-    public function asignar_usuario($id = null){
-            var_dump(current_url());
-            var_dump($id);
-            var_dump($this->input->post('asignado'));
+    public function asignar_usuario($id = null){            //funcion para reasignar el valor del asignado en la tabla 
+            $asignado = $this->input->post('asignado');
+            $this->Laboral_model->asignar_usuario($id,$asignado);
+            redirect(site_url('inicio/index'));
     }
 
 

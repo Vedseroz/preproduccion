@@ -91,10 +91,18 @@ $(document).ready(function() {
                 
             },
             {
+                "title": 'Asignado',
+                "data": 'id_asignado',
+                "searchable": false,
+                "targets": 7,
+                "visible": true,
+                
+            },
+            {
                 "title": 'Fecha Siguiente Etapa',
                 "data": 'fecha_res',
                 "searchable": false,
-                "targets": 7,
+                "targets": 8,
                 "render": function ( data, type, row ) {
                     if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-success">'+ 'Terminado' + '</span>';
                     if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-success">'+ 'Terminado' + '</span>';
@@ -110,7 +118,7 @@ $(document).ready(function() {
             {
                 "title": 'Opciones',
                 "data": null,
-                "targets": 8,
+                "targets": 9,
                 "searchable": false,
                 "orderable": false,
                 "render": function ( data, type, row ) {
@@ -135,29 +143,6 @@ $(document).ready(function() {
                     options_responsive += '</ul></div></div>';
                     
                     return options_normal + options_responsive;
-                }
-            },
-            {
-                "title": 'Asignar',
-                "data": null,
-                "targets": 9,
-                "searchable": false,
-                "orderable": false,
-                "render": function ( data, type, row ) {
-
-                    var link_edit = '<?= site_url('FlujoCausas/Laboral/asignar_usuario') ?>/'+ row.id;
-
-                    var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
-                    
-                    var edit_normal = "<a href='" + link_edit + "'data-id='"+row.id+"' class='blue' data-toggle='modal' data-target='#myModal'><i class='fa fa-user-plus' aria-hidden='true'></i></a>";
-
-                    //options_normal += show_details_normal + edit_normal + remove_normal;
-                    options_normal += edit_normal;
-                    options_normal += '</div>';
-                    console.log(row.id);
-                    return options_normal;
-
-                
                 }
             },
 

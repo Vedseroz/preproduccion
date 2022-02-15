@@ -122,33 +122,7 @@
                     Cancelar
                 </a>
 
-    <!--boton de asignar el nuevo usuario-->
 
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#asignar">
-            Reasignar Causa
-    </button>
-
-    <div class="modal fade" id="asignar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Reasignar a un nuevo usuario:</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-</div>			
-            <div class="modal-body">
-				<select name="asignado" id="asignado" >
-					<?php foreach($asignado as $key=>$value): ?>
-					<option id="inputid" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
-					<?php endforeach; ?>
-				</select> 
-
-			</div>
-
-            <div class="modal-footer"> 
-            <a id="asignar" href="<?=site_url('FlujoCausas/Laboral/asignar_usuario/'. $this->uri->segment(4);?>" class="btn btn-primary">Asignar</a>
-            </div>
             </div>
 			</form>
         </div>

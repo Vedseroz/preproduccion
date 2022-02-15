@@ -8,8 +8,8 @@ class Laboral_model extends General_model{
     }
 
      public function datatable($id_curso = null) {                  //inicializa la base de datos
-    	$table = 'juridica_laboral';
-    	$primaryKey = 'juridica_laboral.id';
+        $table = 'juridica_laboral';
+        $primaryKey = 'juridica_laboral.id';
 		$columns = array(
 			array( 'db' => 'juridica_laboral.id', 'dt' => 'id' ),
 			array( 'db' => 'juridica_laboral.n_demandante', 'dt' => 'n_demandante' ),
@@ -23,10 +23,11 @@ class Laboral_model extends General_model{
             array( 'db' =>'juridica_laboral.etapa', 'dt' => 'etapa'),
             array('db' =>'juridica_laboral.tipo','dt' => 'tipo'),
             array('db' =>'juridica_laboral.resolucion','dt' => 'resolucion'),
+            array('db' =>'juridica_laboral.id_asignado','dt' => 'id_asignado'),
 		);
-    	$data = $this->data_tables->complex($_POST , $table, $primaryKey, $columns);
+        $data = $this->data_tables->complex($_POST , $table, $primaryKey, $columns);
         return $data;
-     }
+    }
 
 
     public function insertar_monitorio($data){      //funcion de insertar a la base de datos juridica_laboral.
@@ -105,6 +106,10 @@ class Laboral_model extends General_model{
 		}
 		return $mail->send();
 	}
+
+    public function asignar_usuario($id=null,$asignado=null){
+        $query = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.id_asignado = '.$asignado.' WHERE juridica_laboral.id = '.$id);
+    }
 
 
 }
