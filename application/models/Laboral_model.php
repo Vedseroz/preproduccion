@@ -34,6 +34,10 @@ class Laboral_model extends General_model{
         $this->db->insert('juridica_laboral',$data);
     }
 
+    public function insertar_ordinario($data){      //funcion de insertar a la base de datos juridica_laboral.
+        $this->db->insert('juridica_laboral',$data);
+    }
+
     public function editar_monitorio($data){    //funcion que edita el dato que recibe a partir del id, buscandolo en la tabla.
         $this->db->get('juridica_laboral');
         $this->db->where('id',$data['id']);

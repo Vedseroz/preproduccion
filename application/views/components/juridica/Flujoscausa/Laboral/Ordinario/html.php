@@ -15,18 +15,10 @@
     
     <div class="col-xs-12">
         <h1>Ingresar información de Denuncia </h1>
-        <?= form_open_multipart(site_url('Proc/Educacion1/IngresarProc1'), 'class="form-horizontal" role="form"') ?>
+        <?= form_open_multipart(site_url('FlujoCausas/Laboral/insertar_ordinario'), 'class="form-horizontal" role="form"') ?>
 
             <br>
             <br>
-
-
-            <!--Subir archivo a carpeta local-->
-               <form action="Flujocausas/Laboral/upload" method="post" enctype="multipart/form-data">
-                Ingrese el archivo del caso:
-                <input type="file" name="fileToUpload" id="fileToUpload">
-                </form>
-           <br>
             
             <!--Nombre del Demandante-->
             <div class="row">
@@ -105,6 +97,30 @@
             </div>
 
             <br>
+
+            <!--Subir archivo a carpeta local-->
+
+            <div class="row">
+                <div class="box">
+                    <div class="col-md-6">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Adjuntar documento de demanda</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div id="documento" class="form-group">
+                                        <div class="col-xs-12">
+                                            <input name="documento_fl" type="file" id="id-input-file_fl" />
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="clearfix form-actions center">
                 <button class="btn btn-info" type="submit">

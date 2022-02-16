@@ -57,6 +57,64 @@ class Laboral extends CI_Controller{
         $this->data['asignado'] = $this->Laboral_model->getUsuarios();
 
     }
+    //====================================================================ORDINARIO=========================================================================================
+    public function insertar_ordinario(){
+        //form validation
+
+        $this->form_validation->set_rules('n_demandante','<b>Nombre del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
+        $this->form_validation->set_rules('fecha_prep','<b>Fecha de Audiencia Preparatoria</b>','trim|required');
+        $this->form_validation->set_rules('fecha_juicio','<b>Fecha de Audiencia del Juicio</b>','trim|required');
+        
+        //creacion de array de datos.
+        
+        $rol = $this->input->post('rol');
+        $tipo = explode("-",$rol);
+        $n_archivo = $this->name();  //nombre del archivo
+        $rut = $this->input->post('rut');
+        $rol = $this->input->post('rol');
+
+        $datos = array(
+            'n_demandante' => $this->input->post('n_demandante'),
+            'rut' => $this->input->post('rut'),
+            'rol' => $this->input->post('rol'),
+            'fecha_not' => $this->input->post('fecha_not'),
+            'tribunal' => $this->input->post('tribunal'),
+            'fecha_prep' => $this->input->post('fecha_prep'),
+            'fecha_juicio' => $this->input->post('fecha_juicio'),
+            'tipo' => $tipo[0],
+            'id_asignado' => 96,
+            'archivo' => $n_archivo,
+            'etapa' => 3
+        );
+        
+        $config['upload_path'] = './files/juridica/LaboralO/';
+        $config['allowed_types'] = '*';
+        $config['overwrite'] = true;
+        $config['file_name'] = $rut.'_'.$rol.'_'.$n_archivo;
+        //subida del archivo
+        
+        if($this->upload->initialize($config)){
+        
+        $this->upload->do_upload('documento_fl');
+        }
+        else{
+            echo "no cargo el config";
+        }
+        //inserta en el model el array
+
+        $this->Laboral_model->insertar_ordinario($datos);
+
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+        
+        $this->status();
+        
+    }
+
+    //====================================================================MONITORIO==========================================================================================
 
     public function insertar_monitorio(){
         //form validation
@@ -115,6 +173,22 @@ class Laboral extends CI_Controller{
     public function name(){
         return basename($_FILES["documento_fl"]["name"]);
     }
+// =================================================================ORDINARIO===================================================================================================
+    public function mostrar_ordinario_id($id = null){
+        $this->data['title'] = 'FALSE';
+        $this->data['subtitle'] = 'Página en blanco';
+        $this->data['breadcrumb'] = array(
+            array(
+                'name' => 'Laboral Ordinario',
+                'link' => site_url('ordinario/index')
+            )
+        );
+        
+        $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
+        $this->data['asignado'] = $this->Laboral_model->getUsuarios();
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','OrdinarioMostrar',$this->data);
+    }
+//==============================================================================================================================================================================
 
     //mostrar los datos por el id de la fila
     public function mostrar_monitorio_id($id = null){

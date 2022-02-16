@@ -112,6 +112,10 @@ $(document).ready(function() {
                     if(row.etapa == 2){
                         return row.fecha_res.split("-").reverse().join("-");
                     }
+                    if(row.etapa == 3){
+                        return addDaystoDate(row.fecha_prep,5);
+                        console.log(row.fecha_prep);
+                    }
                 }
                 
             },
@@ -126,7 +130,7 @@ $(document).ready(function() {
                     if(row.etapa == 0) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 1) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
-                    if(row.etapa == 3) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
+                    if(row.etapa == 3) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id;
                     if(row.etapa == 4) link_edit = '<?= site_url('EduciacionQuinto/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
                     
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
