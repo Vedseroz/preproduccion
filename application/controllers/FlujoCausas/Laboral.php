@@ -188,6 +188,27 @@ class Laboral extends CI_Controller{
         $this->data['asignado'] = $this->Laboral_model->getUsuarios();
         $this->view_handler->view('juridica/Flujoscausa/Laboral','OrdinarioMostrar',$this->data);
     }
+
+    public function editar_ordinario($id=null){
+        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
+        $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
+        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+
+        $datos = array(
+            'id' => $id, 
+            'n_demandante' => $this->input->post('n_demandante'),       
+            'rut' => $this->input->post('rut'),
+            'rol' => $this->input->post('rol'),   
+            'fecha_res' => $this->input->post('fecha_prep'),
+            'etapa' => 4,
+        );
+
+        $this->Laboral_model->editar_ordinario($datos);
+        redirect(site_url('inicio/index'));
+
+    }
 //==============================================================================================================================================================================
 
     //mostrar los datos por el id de la fila

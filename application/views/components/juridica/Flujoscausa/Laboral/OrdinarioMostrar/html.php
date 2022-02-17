@@ -101,7 +101,14 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia Preparatoria:</label>
-                <input name="fecha_res" data-rel="tooltip" <?php if($denuncia['etapa']==0){ echo 'readonly'; }?> type="date" id="fecha_prep" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_prep']?>">
+                <input name="fecha_res" data-rel="tooltip" <?php if($denuncia['etapa']==0 && $denuncia['etapa']== 4){ echo 'readonly'; }?> type="date" id="fecha_prep" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_prep']?>">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia del Juicio:</label>
+                <input name="fecha_res" data-rel="tooltip" <?php if($denuncia['etapa']==0 && $denuncia['etapa']== 3){ echo 'readonly'; }?> type="date" id="fecha_juicio" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_prep']?>">
                 </div>
             </div>
 

@@ -76,9 +76,9 @@ $(document).ready(function() {
                     if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-primary">' + 'RECHAZADA'+'</span>';
                     if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
                     if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
-                    if(row.etapa == 3) return 'Formulación de Cargo -> Dictamen';         //laboral ordinario
-                    if(row.etapa == 4) return 'Dictamen -> Impugnación';
-                    if(row.etapa == 5) return 'Impugnación -> Resolución';
+                    if(row.etapa == 3) return 'Denuncia Realizada -> Audiencia Preparatoria';         //laboral ordinario
+                    if(row.etapa == 4) return 'Audiencia Preparatoria -> Audiencia al Juicio';
+                    if(row.etapa == 5) return 'Audiencia de Juicio -> Resolucion';
                     if(row.etapa == 6) return 'Resolución Finalizada';
                 }
             },
@@ -114,7 +114,9 @@ $(document).ready(function() {
                     }
                     if(row.etapa == 3){
                         return addDaystoDate(row.fecha_prep,5);
-                        console.log(row.fecha_prep);
+                    }
+                    if(row.etapa == 4){
+                        return addDaystoDate(row.fecha_juicio,3);
                     }
                 }
                 
@@ -131,7 +133,7 @@ $(document).ready(function() {
                     if(row.etapa == 1) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 3) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id;
-                    if(row.etapa == 4) link_edit = '<?= site_url('EduciacionQuinto/Usuario1sp') ?>/' + row.id + '/' + row.id_ctrz;
+                    if(row.etapa == 4) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id ;
                     
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
                     var edit_normal = '<a class="blue" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
@@ -299,6 +301,13 @@ $(document).ready(function() {
     function addDaystoDate(date,days){
         var res = new Date(date);
         res.setDate(res.getDate() + days);          //calcula la suma de dias para la siguiente etapa
+        if(res.getDay() == 6){                         //calculo en caso de que el dia sea sabado
+            res.setDate(res.getDate() + 2);  
+        }
+        if(res.getDay() == 0){                          //calculo en caso de que el dia sea domingo
+            res.setDate(res.getDate() + 1);
+        }
+        
         after_date = res;
         year = after_date.getFullYear();            //saca el año
 

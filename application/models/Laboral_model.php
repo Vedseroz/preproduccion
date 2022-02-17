@@ -44,6 +44,13 @@ class Laboral_model extends General_model{
         $this->db->update('juridica_laboral',$data);
     }
 
+    public function editar_ordinario($data){    //funcion que edita el dato que recibe a partir del id, buscandolo en la tabla.
+        $this->db->get('juridica_laboral');
+        $this->db->where('id',$data['id']);
+        $this->db->update('juridica_laboral',$data);
+    }
+
+
     public function getUsuarios(){
         $query = $this->db->query('SELECT * FROM abogados');
         $data = $query->result();
