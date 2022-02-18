@@ -53,7 +53,7 @@ $(document).ready(function() {
                 "visible": true
             }, 
             {
-                "title": 'Fecha de Notificacion ',
+                "title": 'Fecha de Notificacion /Ingreso',
                 "data": 'fecha_not',
                 "searchable": false,
                 "targets": 4,
@@ -77,9 +77,9 @@ $(document).ready(function() {
                     if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
                     if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
                     if(row.etapa == 3) return 'Denuncia Realizada -> Audiencia Preparatoria';         //laboral ordinario
-                    if(row.etapa == 4) return 'Audiencia Preparatoria -> Audiencia al Juicio';
-                    if(row.etapa == 5) return 'Audiencia de Juicio -> Resolucion';
-                    if(row.etapa == 6) return 'Resolución Finalizada';
+                    if(row.etapa == 4) return 'Audiencia Preparatoria -> Audiencia al Juicio';        //ordinario
+                    if(row.etapa == 5) return 'Audiencia de Juicio -> Resolucion';                     //ordinario
+                    if(row.etapa == 6) return 'Resolución Finalizada';                                 //ordinario
                 }
             },
             {
@@ -95,7 +95,7 @@ $(document).ready(function() {
                 "data": 'id_asignado',
                 "searchable": false,
                 "targets": 7,
-                "visible": true,
+                "visible" :true
                 
             },
             {
@@ -300,12 +300,12 @@ $(document).ready(function() {
 
     function addDaystoDate(date,days){
         var res = new Date(date);
-        res.setDate(res.getDate() + days);          //calcula la suma de dias para la siguiente etapa
-        if(res.getDay() == 6){                         //calculo en caso de que el dia sea sabado
-            res.setDate(res.getDate() + 2);  
+        res.setDate(res.getDate() - days);          //calcula la suma de dias para la siguiente etapa
+        if(res.getDay() == 0){                         //calculo en caso de que el dia sea sabado
+            res.setDate(res.getDate() - 2);  
         }
-        if(res.getDay() == 0){                          //calculo en caso de que el dia sea domingo
-            res.setDate(res.getDate() + 1);
+        if(res.getDay() == 6){                          //calculo en caso de que el dia sea domingo
+            res.setDate(res.getDate() - 1);
         }
         
         after_date = res;

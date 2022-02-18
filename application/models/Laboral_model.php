@@ -57,7 +57,6 @@ class Laboral_model extends General_model{
         return $data;
     }
 
-
     public function getbyid($id = null){                    //devuelve la columna de la tabla de datos
         $query = $this->db->query('SELECT * FROM juridica_laboral WHERE juridica_laboral.id = '. $id);
         foreach($query->result() as $value){

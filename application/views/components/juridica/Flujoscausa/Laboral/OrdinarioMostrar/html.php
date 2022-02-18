@@ -9,7 +9,7 @@
 
         <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
         
-        <?= form_open_multipart(site_url('FlujoCausas/Laboral/editar_monitorio/'. $this->uri->segment(4)), 'class="form-horizontal" role="form" method="POST"') ?>
+        <?= form_open_multipart(site_url('FlujoCausas/Laboral/editar_ordinario/'. $this->uri->segment(4)), 'class="form-horizontal" role="form" method="POST"') ?>
 
         <br>
             
