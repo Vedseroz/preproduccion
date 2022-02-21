@@ -74,6 +74,7 @@ $(document).ready(function() {
                 "render": function ( data, type, row ) {
                     if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-primary">'+ 'ACOGIDA' +'</span>';
                     if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-primary">' + 'RECHAZADA'+'</span>';
+                    if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-primary">' + 'IMPUGNACION'+'</span>';
                     if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
                     if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
                     if(row.etapa == 3) return 'Denuncia Realizada -> Audiencia Preparatoria';         //laboral ordinario
@@ -95,7 +96,9 @@ $(document).ready(function() {
                 "data": 'id_asignado',
                 "searchable": false,
                 "targets": 7,
-                "visible" :true
+                "render": function(data,type,row){
+                    return row.nombre_asignado + ' ' + row.apellido_asignado;
+                }
                 
             },
             {
@@ -106,6 +109,7 @@ $(document).ready(function() {
                 "render": function ( data, type, row ) {
                     if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-success">'+ 'Terminado' + '</span>';
                     if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-success">'+ 'Terminado' + '</span>';
+                    if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-success">'+ 'En Espera' + '</span>';
                     if(row.etapa == 1){
                         return addDaystoDate(row.fecha_not,10);
                     }
@@ -117,6 +121,9 @@ $(document).ready(function() {
                     }
                     if(row.etapa == 4){
                         return addDaystoDate(row.fecha_juicio,3);
+                    }
+                    if(row.etapa == 5){
+                        return row.fecha_juicio.split("-").reverse().join("-");
                     }
                 }
                 
@@ -134,6 +141,7 @@ $(document).ready(function() {
                     if(row.etapa == 2) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_monitorio_id') ?>/' + row.id;
                     if(row.etapa == 3) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id;
                     if(row.etapa == 4) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id ;
+                    if(row.etapa == 5) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id ;
                     
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
                     var edit_normal = '<a class="blue" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';

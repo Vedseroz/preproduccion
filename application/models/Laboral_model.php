@@ -24,6 +24,8 @@ class Laboral_model extends General_model{
             array('db' =>'juridica_laboral.tipo','dt' => 'tipo'),
             array('db' =>'juridica_laboral.resolucion','dt' => 'resolucion'),
             array('db' =>'juridica_laboral.id_asignado','dt' => 'id_asignado'),
+            array('db' => 'juridica_laboral.nombre_asignado', 'dt' => 'nombre_asignado'),
+            array('db' => 'juridica_laboral.apellido_asignado', 'dt' => 'apellido_asignado')
 		);
         $data = $this->data_tables->complex($_POST , $table, $primaryKey, $columns);
         return $data;
@@ -74,6 +76,17 @@ class Laboral_model extends General_model{
             $data['etapa'] = $value->etapa;
             $data['archivo'] = $value->archivo;
             $data['resolucion'] = $value->resolucion;
+            $data['nombre_asignado'] = $value->nombre_asignado;
+            $data['apellido_asignado'] = $value->apellido_asignado;
+        }
+        return $data;
+    }
+
+    public function getName($id = null){
+        $query = $this->db->query('SELECT abogados.first_name,abogados.last_name FROM abogados WHERE abogados.id = '.$id);
+        foreach($query->result() as $value){
+            $data['nombre_asignado'] = $value->first_name;
+            $data['apellido_asignado'] = $value->last_name;
         }
         return $data;
     }
@@ -119,6 +132,9 @@ class Laboral_model extends General_model{
 
     public function asignar_usuario($id=null,$asignado=null){
         $query = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.id_asignado = '.$asignado.' WHERE juridica_laboral.id = '.$id);
+        $data = $this->Laboral_model->getName($asignado);
+        $query2 = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.nombre_asignado = '.'"'.$data['nombre_asignado'].'"'.' WHERE juridica_laboral.id = '.$id);
+        $query3 = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.apellido_asignado = '.'"'.$data['apellido_asignado'].'"'.' WHERE juridica_laboral.id = '.$id);
     }
 
 

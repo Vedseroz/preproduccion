@@ -209,6 +209,43 @@ class Laboral extends CI_Controller{
         redirect(site_url('inicio/index'));
 
     }
+
+    public function editar_ordinario2($id=null){                        //pasa a la fase de la audiencia del juicio
+        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
+        $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
+        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+
+        $datos = array(
+            'id' => $id, 
+            'n_demandante' => $this->input->post('n_demandante'),       
+            'rut' => $this->input->post('rut'),
+            'rol' => $this->input->post('rol'),   
+            'fecha_res' => $this->input->post('fecha_juicio'),
+            'etapa' => 5,
+        );
+
+        $this->Laboral_model->editar_ordinario($datos);
+        redirect(site_url('inicio/index'));
+
+    }
+
+    //funcion para finalizar un caso.
+    public function finalizar_ordinario($id = null,$value = null){
+        $datos = array(
+            'id' => $id,
+            'resolucion' => $value,
+            'etapa' => 0,
+        );
+
+        $this->Laboral_model->editar_monitorio($datos);
+        
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+
+        redirect(site_url('inicio/index'));
+    }
 //==============================================================================================================================================================================
 
     //mostrar los datos por el id de la fila
