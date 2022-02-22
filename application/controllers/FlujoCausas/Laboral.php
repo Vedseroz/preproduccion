@@ -57,62 +57,6 @@ class Laboral extends CI_Controller{
         $this->data['asignado'] = $this->Laboral_model->getUsuarios();
 
     }
-    //====================================================================ORDINARIO=========================================================================================
-    public function insertar_ordinario(){
-        //form validation
-
-        $this->form_validation->set_rules('n_demandante','<b>Nombre del Demandante</b>','trim|required');
-        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
-        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
-        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
-        $this->form_validation->set_rules('fecha_prep','<b>Fecha de Audiencia Preparatoria</b>','trim|required');
-        $this->form_validation->set_rules('fecha_juicio','<b>Fecha de Audiencia del Juicio</b>','trim|required');
-        
-        //creacion de array de datos.
-        
-        $rol = $this->input->post('rol');
-        $tipo = explode("-",$rol);
-        $n_archivo = $this->name();  //nombre del archivo
-        $rut = $this->input->post('rut');
-        $rol = $this->input->post('rol');
-
-        $datos = array(
-            'n_demandante' => $this->input->post('n_demandante'),
-            'rut' => $this->input->post('rut'),
-            'rol' => $this->input->post('rol'),
-            'fecha_not' => $this->input->post('fecha_not'),
-            'tribunal' => $this->input->post('tribunal'),
-            'fecha_prep' => $this->input->post('fecha_prep'),
-            'fecha_juicio' => $this->input->post('fecha_juicio'),
-            'tipo' => $tipo[0],
-            'id_asignado' => 96,
-            'archivo' => $n_archivo,
-            'etapa' => 3
-        );
-        
-        $config['upload_path'] = './files/juridica/LaboralO/';
-        $config['allowed_types'] = '*';
-        $config['overwrite'] = true;
-        $config['file_name'] = $rut.'_'.$rol.'_'.$n_archivo;
-        //subida del archivo
-        
-        if($this->upload->initialize($config)){
-        
-        $this->upload->do_upload('documento_fl');
-        }
-        else{
-            echo "no cargo el config";
-        }
-        //inserta en el model el array
-
-        $this->Laboral_model->insertar_ordinario($datos);
-
-        $mail = $this->Laboral_model->getMail(96);
-        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
-        
-        $this->status();
-        
-    }
 
     //====================================================================MONITORIO==========================================================================================
 
@@ -132,6 +76,9 @@ class Laboral extends CI_Controller{
         $n_archivo = $this->name();  //nombre del archivo
         $rut = $this->input->post('rut');
         $rol = $this->input->post('rol');
+        $nombrecompleto = $this->Laboral_model->getName(96);
+        $nombre = $nombrecompleto['nombre_asignado'];
+        $apellido = $nombrecompleto['apellido_asignado'];
 
         $datos = array(
             'n_demandante' => $this->input->post('n_demandante'),
@@ -143,7 +90,9 @@ class Laboral extends CI_Controller{
             'tipo' => $tipo[0],
             'id_asignado' => 96,
             'archivo' => $n_archivo,
-            'etapa' => 1
+            'etapa' => 1,
+            'nombre_asignado' => $nombre,
+            'apellido_asignado' =>$apellido
         );
         
         $config['upload_path'] = './files/juridica/LaboralM/';
@@ -165,88 +114,13 @@ class Laboral extends CI_Controller{
 
         $mail = $this->Laboral_model->getMail(96);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
-        
-        $this->status();
+        redirect(site_url('inicio/index'));
         
     }
 
     public function name(){
         return basename($_FILES["documento_fl"]["name"]);
     }
-// =================================================================ORDINARIO===================================================================================================
-    public function mostrar_ordinario_id($id = null){
-        $this->data['title'] = 'FALSE';
-        $this->data['subtitle'] = 'Página en blanco';
-        $this->data['breadcrumb'] = array(
-            array(
-                'name' => 'Laboral Ordinario',
-                'link' => site_url('ordinario/index')
-            )
-        );
-        
-        $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
-        $this->data['asignado'] = $this->Laboral_model->getUsuarios();
-        $this->view_handler->view('juridica/Flujoscausa/Laboral','OrdinarioMostrar',$this->data);
-    }
-
-    public function editar_ordinario($id=null){
-        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
-        $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
-        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
-        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
-        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
-
-        $datos = array(
-            'id' => $id, 
-            'n_demandante' => $this->input->post('n_demandante'),       
-            'rut' => $this->input->post('rut'),
-            'rol' => $this->input->post('rol'),   
-            'fecha_res' => $this->input->post('fecha_prep'),
-            'etapa' => 4,
-        );
-
-        $this->Laboral_model->editar_ordinario($datos);
-        redirect(site_url('inicio/index'));
-
-    }
-
-    public function editar_ordinario2($id=null){                        //pasa a la fase de la audiencia del juicio
-        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
-        $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
-        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
-        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
-        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
-
-        $datos = array(
-            'id' => $id, 
-            'n_demandante' => $this->input->post('n_demandante'),       
-            'rut' => $this->input->post('rut'),
-            'rol' => $this->input->post('rol'),   
-            'fecha_res' => $this->input->post('fecha_juicio'),
-            'etapa' => 5,
-        );
-
-        $this->Laboral_model->editar_ordinario($datos);
-        redirect(site_url('inicio/index'));
-
-    }
-
-    //funcion para finalizar un caso.
-    public function finalizar_ordinario($id = null,$value = null){
-        $datos = array(
-            'id' => $id,
-            'resolucion' => $value,
-            'etapa' => 0,
-        );
-
-        $this->Laboral_model->editar_monitorio($datos);
-        
-        $mail = $this->Laboral_model->getMail(96);
-        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
-
-        redirect(site_url('inicio/index'));
-    }
-//==============================================================================================================================================================================
 
     //mostrar los datos por el id de la fila
     public function mostrar_monitorio_id($id = null){
@@ -262,6 +136,7 @@ class Laboral extends CI_Controller{
         $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
         $this->data['asignado'] = $this->Laboral_model->getUsuarios();
         $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
+        
     }
 
     //edita la información que recibe
@@ -270,6 +145,7 @@ class Laboral extends CI_Controller{
         $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
         $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
         $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+        $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
 
         $datos = array(
             'id' => $id, 
@@ -279,6 +155,9 @@ class Laboral extends CI_Controller{
             'fecha_res' => $this->input->post('fecha_res'),
             'etapa' => 2,
         );
+
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
 
         $this->Laboral_model->editar_monitorio($datos);
         redirect(site_url('inicio/index'));
@@ -301,10 +180,149 @@ class Laboral extends CI_Controller{
         redirect(site_url('inicio/index'));
     }
 
-    //mostrar informacion en inputs.
-    public function status(){
-        $this->view_handler->view('juridica/','status',$this->data); 
+// =================================================================ORDINARIO===================================================================================================
+    public function insertar_ordinario(){
+    //form validation
+
+    $this->form_validation->set_rules('n_demandante','<b>Nombre del Demandante</b>','trim|required');
+    $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+    $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+    $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
+    $this->form_validation->set_rules('fecha_prep','<b>Fecha de Audiencia Preparatoria</b>','trim');
+    $this->form_validation->set_rules('fecha_juicio','<b>Fecha de Audiencia del Juicio</b>','trim');
+    
+    //creacion de array de datos.
+    
+    $rol = $this->input->post('rol');
+    $tipo = explode("-",$rol);
+    $n_archivo = $this->name();  //nombre del archivo
+    $rut = $this->input->post('rut');
+    $rol = $this->input->post('rol');
+    $nombrecompleto = $this->Laboral_model->getName(96);
+    $nombre = $nombrecompleto['nombre_asignado'];
+    $apellido = $nombrecompleto['apellido_asignado'];
+
+    $datos = array(
+        'n_demandante' => $this->input->post('n_demandante'),
+        'rut' => $this->input->post('rut'),
+        'rol' => $this->input->post('rol'),
+        'fecha_not' => $this->input->post('fecha_not'),
+        'tribunal' => $this->input->post('tribunal'),
+        'fecha_prep' => $this->input->post('fecha_prep'),
+        'fecha_juicio' => $this->input->post('fecha_juicio'),
+        'tipo' => $tipo[0],
+        'id_asignado' => 96,
+        'archivo' => $n_archivo,
+        'etapa' => 3,
+        'nombre_asignado' => $nombre,
+        'apellido_asignado' => $apellido
+    );
+    
+    $config['upload_path'] = './files/juridica/LaboralO/';
+    $config['allowed_types'] = '*';
+    $config['overwrite'] = true;
+    $config['file_name'] = $rut.'_'.$rol.'_'.$n_archivo;
+    //subida del archivo
+    
+    if($this->upload->initialize($config)){
+    
+    $this->upload->do_upload('documento_fl');
     }
+    else{
+        echo "no cargo el config";
+    }
+    //inserta en el model el array
+
+    $this->Laboral_model->insertar_ordinario($datos);
+
+    $mail = $this->Laboral_model->getMail(96);
+    $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+    redirect(site_url('inicio/index'));
+    
+    
+}
+
+public function mostrar_ordinario_id($id = null){
+        $this->data['title'] = 'FALSE';
+        $this->data['subtitle'] = 'Página en blanco';
+        $this->data['breadcrumb'] = array(
+            array(
+                'name' => 'Laboral Ordinario',
+                'link' => site_url('ordinario/index')
+            )
+        );
+        
+        $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
+        $this->data['asignado'] = $this->Laboral_model->getUsuarios();
+        $this->view_handler->view('juridica/Flujoscausa/Laboral','OrdinarioMostrar',$this->data);
+    }
+
+    public function editar_ordinario($id=null){
+        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim');
+        $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
+        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+
+        $datos = array(
+            'id' => $id, 
+            'n_demandante' => $this->input->post('n_demandante'),       
+            'rut' => $this->input->post('rut'),
+            'rol' => $this->input->post('rol'),   
+            'fecha_prep' => $this->input->post('fecha_prep'),
+            'etapa' => 4,
+        );
+
+        var_dump($datos);
+
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+        $this->Laboral_model->editar_ordinario($datos);
+        redirect(site_url('inicio/index'));
+
+    }
+
+    public function editar_ordinario2($id=null){                        //pasa a la fase de la audiencia del juicio
+        $this->form_validation->set_rules('fecha_not','<b>Fecha de Notificación</b>','trim|required');
+        $this->form_validation->set_rules('fecha_juicio','<b?>Fecha de Audiencia de Juicio</b?','trim|required');
+        $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
+        $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+        
+        $datos = array(
+            'id' => $id, 
+            'n_demandante' => $this->input->post('n_demandante'),       
+            'rut' => $this->input->post('rut'),
+            'rol' => $this->input->post('rol'),   
+            'fecha_juicio' => $this->input->post('fecha_juicio'),
+            'etapa' => 5,
+        );
+
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+        $this->Laboral_model->editar_ordinario($datos);
+        redirect(site_url('inicio/index'));
+
+    }
+
+    //funcion para finalizar un caso.
+    public function finalizar_ordinario($id = null,$value = null){
+        $datos = array(
+            'id' => $id,
+            'resolucion' => $value,
+            'etapa' => 0,
+        );
+
+        $this->Laboral_model->editar_monitorio($datos);
+        
+        $mail = $this->Laboral_model->getMail(96);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+
+        redirect(site_url('inicio/index'));
+    }
+//==============================================================================================================================================================================
+
+    
     
     public function download($id = null){                   //funcion para descargar el documento. 
         $fichero = $this->Laboral_model->getbyid($id);
@@ -322,6 +340,12 @@ class Laboral extends CI_Controller{
             $asignado = $this->input->post('asignado');
             $this->Laboral_model->asignar_usuario($id,$asignado);
             redirect(site_url('inicio/index'));
+    }
+
+    public function enviar_notificacion($id_asignado = null){
+        $data = $this->Laboral_model->getMail($id_asignado);
+        $this->Laboral_model->sendMail($data['nombre'],$data['email']);
+        
     }
 
 

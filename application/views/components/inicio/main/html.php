@@ -172,24 +172,17 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Reasignar a un nuevo usuario:</h3>
+            <h3 class="modal-title" id="exampleModalLabel">Notificación enviada</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
 </div>			
-			<?= form_open_multipart(site_url('FlujoCausas/Laboral/asignar_usuario/'. $this->uri->segment(4)), 'class="form-horizontal" role="form" method="POST"') ?>
             <div class="modal-body">
-				<select name="asignado" id="asignado" >
-					<?php foreach($asignado as $key=>$value): ?>
-					<option id="asignado" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
-					<p><?=$value->id?></p>
-					<?php endforeach; ?>
-				</select> 
-
+				<p>El correo ha sido enviado.</p>
 			</div>
 
             <div class="modal-footer"> 
-            <button id="asignar" type="submit" class="btn btn-primary">Asignar</button>
+            <button id="asignar" type="submit" class="btn btn-primary">Cerrar</button>
             </div>
             </div>
 			</form>

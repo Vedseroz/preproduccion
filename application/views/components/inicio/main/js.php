@@ -80,7 +80,8 @@ $(document).ready(function() {
                     if(row.etapa == 3) return 'Denuncia Realizada -> Audiencia Preparatoria';         //laboral ordinario
                     if(row.etapa == 4) return 'Audiencia Preparatoria -> Audiencia al Juicio';        //ordinario
                     if(row.etapa == 5) return 'Audiencia de Juicio -> Resolucion';                     //ordinario
-                    if(row.etapa == 6) return 'Resolución Finalizada';                                 //ordinario
+                    if(row.etapa == 6) return 'Resolución Finalizada'; 
+                        return '<span class="label label-success">'+ 'En Espera' + '</span>';                                //ordinario
                 }
             },
             {
@@ -117,14 +118,17 @@ $(document).ready(function() {
                         return row.fecha_res.split("-").reverse().join("-");
                     }
                     if(row.etapa == 3){
-                        return addDaystoDate(row.fecha_prep,5);
+                        //return addDaystoDate(row.fecha_prep,5);
+                        return '<span class="label label-success">'+ 'En Espera' + '</span>';
                     }
                     if(row.etapa == 4){
-                        return addDaystoDate(row.fecha_juicio,3);
+                        return addDaystoDate(row.fecha_prep,5);
+                        //return addDaystoDate(row.fecha_juicio,3);
                     }
                     if(row.etapa == 5){
-                        return row.fecha_juicio.split("-").reverse().join("-");
+                        return addDaystoDate(row.fecha_juicio,3);
                     }
+
                 }
                 
             },
@@ -158,6 +162,23 @@ $(document).ready(function() {
                     
                     return options_normal + options_responsive;
                 }
+            },
+            {
+                "title": 'Notificar',
+                "data": 'null',
+                "searchable": false,
+                "targets": 10,
+                "render": function ( data, type, row ) {
+                    var link_edit = '*';
+                    link_edit = '<?= site_url('FlujoCausas/Laboral/enviar_notificacion') ?>/' + row.id_asignado;
+                    var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
+                    var edit_normal = '<a class="blue" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-envelope bigger-130"></i></a>';
+                    options_normal += edit_normal;
+                    options_normal += '</div>';
+                
+                    return options_normal;
+                }
+                
             },
 
         ],

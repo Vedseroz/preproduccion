@@ -105,6 +105,7 @@ class Laboral_model extends General_model{
         $this->load->library('PHPMailer_Lib');
         $mail = $this->phpmailer_lib->load();		
 		$mail->isSMTP();
+        //$mail->SMTPDebug = 2;
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = 465;
 		$mail->SMTPSecure = 'ssl';
@@ -117,7 +118,7 @@ class Laboral_model extends General_model{
         );
 		$mail->SMTPAuth = true;
 		$mail->Username = "notificaciones.td@cmvalparaiso.cl";
-		$mail->Password = "td456CMV";
+		$mail->Password = "1q2w3etdcmv";
 		$mail->setFrom('notificaciones.td@cmvalparaiso.cl', 'Notificación TD');
 		$mail->addAddress($email, $nombre);
 		$mail->Subject = 'Información ingresada';

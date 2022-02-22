@@ -76,25 +76,6 @@
             </div>
 
             <br>
-            
-            <!--fecha audiencia preparatoria-->
-            <div class="row">
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="fecha_not">Fecha de la Audiencia Preparatoria:</label>
-                    <input name="fecha_prep" data-rel="tooltip" type="date" id="fecha_prep" placeholder="" class="col-md-2" value="<?php echo set_value('fecha_prep') ?>">
-                </div>
-            </div>
-
-            <br>
-
-            <!--fecha audiencia de jucio-->
-
-            <div class="row">
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="fecha_not">Fecha de la Audiencia del Juicio:</label>
-                    <input name="fecha_juicio" data-rel="tooltip" type="date" id="fecha_juicio" placeholder="" class="col-md-2" value="<?php echo set_value('fecha_juicio') ?>">
-                </div>
-            </div>
 
             <br>
 
