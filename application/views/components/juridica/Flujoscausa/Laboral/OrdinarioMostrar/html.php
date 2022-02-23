@@ -106,7 +106,7 @@
             </div>
             <?php endif;?>
             
-            <?php if($denuncia['etapa']== 4):?>
+            <?php if($denuncia['etapa'] == 4):?>
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia del Juicio:</label>
@@ -122,7 +122,7 @@
                 <?php if($denuncia['etapa'] != 0) :?>
                 <button class="btn btn-info" type="submit" value="upload">
                     <i class="ace-icon fa fa-check bigger-110"></i>
-                    Editar
+                    Guardar
                 </button>
                 <a href="<?= site_url("inicio/index")?>" class="btn btn-danger" type="reset">
                     <i class="ace-icon fa fa-times   bigger-110"></i>
@@ -138,10 +138,11 @@
                 <?php endif;?>
 
 
-                <?php if($denuncia['etapa'] >= 2) :?>
+                <?php if($denuncia['etapa'] >= 2 or $denuncia['resolucion'] == 2) :?>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
                     Finalizar Causa
                 </button>
+                <?php endif;?>
 
             <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -157,21 +158,22 @@
                 <h4>¿En qué estado desea finalizar la causa?</h4>       
             </div>
             <div class="modal-footer">
+            <a type="button" class="btn btn-info" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'3')?> >ACUERDO</a>
             <a type="button" class="btn btn-success" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'1')?> >ACEPTADA</a> <!-- 1 es Aceptada, 0 es rechazada-->
-            <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'0')?> >RECHAZADA SIN IMPUGNACION</a>
-            <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'2')?> >RECHAZADA CON IMPUGNACION</a>
+            <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'0')?> >RECHAZADA</a>
+            <a type="button" class="btn btn-warning" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'2')?> >IMPUGNACION</a>
             </div>
             </div>
         </div>
     </div>                
-    <?php endif;?>
+    
 
     <!--boton de asignar al-->
-
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#asignar">
-        Reasignar usuario
+        Reasignar Usuario
     </button>
     </div>
+    
 
     </form>
 

@@ -146,6 +146,8 @@ class Laboral extends CI_Controller{
         $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
         $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
         $this->form_validation->set_rules('fecha_prep','<b?>Fecha de Audiencia Preparatoria</b?','trim|required');
+        var_dump($asignado);
+        $asignado = $this->Laboral_model->getAsignado($id);
 
         $datos = array(
             'id' => $id, 
@@ -154,11 +156,13 @@ class Laboral extends CI_Controller{
             'rol' => $this->input->post('rol'),   
             'fecha_res' => $this->input->post('fecha_res'),
             'etapa' => 2,
+            'id_asignado' => $asignado,
         );
 
-        $mail = $this->Laboral_model->getMail(96);
+        $mail = $this->Laboral_model->getMail($asignado);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
 
+        var_dump($datos);
         $this->Laboral_model->editar_monitorio($datos);
         redirect(site_url('inicio/index'));
 
@@ -166,15 +170,16 @@ class Laboral extends CI_Controller{
 
     //funcion para finalizar un caso.
     public function finalizar_monitorio($id = null,$value = null){
+        $asignado = $this->Laboral_model->getAsignado($id);
         $datos = array(
             'id' => $id,
             'resolucion' => $value,
             'etapa' => 0,
+            'id_asignado' => $asignado
         );
 
         $this->Laboral_model->editar_monitorio($datos);
-        
-        $mail = $this->Laboral_model->getMail(96);
+        $mail = $this->Laboral_model->getMail($asignado);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
 
         redirect(site_url('inicio/index'));
@@ -235,7 +240,7 @@ class Laboral extends CI_Controller{
 
     $this->Laboral_model->insertar_ordinario($datos);
 
-    $mail = $this->Laboral_model->getMail(96);
+    $mail = $this->Laboral_model->getMail(96);                  //por defecto se debe enviar al abogado por defecto que es Leonardo
     $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
     redirect(site_url('inicio/index'));
     
@@ -263,6 +268,8 @@ public function mostrar_ordinario_id($id = null){
         $this->form_validation->set_rules('n_demandante','<b>Nombre de Demandante</b>','trim|required');
         $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
         $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
+        $asignado = $this->Laboral_model->getAsignado($id);
+        var_dump($asignado);
 
         $datos = array(
             'id' => $id, 
@@ -271,11 +278,12 @@ public function mostrar_ordinario_id($id = null){
             'rol' => $this->input->post('rol'),   
             'fecha_prep' => $this->input->post('fecha_prep'),
             'etapa' => 4,
+            'id_asignado' => $asignado
         );
 
         var_dump($datos);
 
-        $mail = $this->Laboral_model->getMail(96);
+        $mail = $this->Laboral_model->getMail($asignado);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
         $this->Laboral_model->editar_ordinario($datos);
         redirect(site_url('inicio/index'));
@@ -289,6 +297,7 @@ public function mostrar_ordinario_id($id = null){
         $this->form_validation->set_rules('rut','<b>RUT del Demandante</b>','trim|required');
         $this->form_validation->set_rules('rol','<b>RIT/ROL</b>','trim|required');
         
+        $asignado = $this->Laboral_model->getAsignado($id);
         $datos = array(
             'id' => $id, 
             'n_demandante' => $this->input->post('n_demandante'),       
@@ -296,9 +305,10 @@ public function mostrar_ordinario_id($id = null){
             'rol' => $this->input->post('rol'),   
             'fecha_juicio' => $this->input->post('fecha_juicio'),
             'etapa' => 5,
+            'id_asignado' => $asignado
         );
 
-        $mail = $this->Laboral_model->getMail(96);
+        $mail = $this->Laboral_model->getMail($asignado);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
         $this->Laboral_model->editar_ordinario($datos);
         redirect(site_url('inicio/index'));
@@ -307,15 +317,17 @@ public function mostrar_ordinario_id($id = null){
 
     //funcion para finalizar un caso.
     public function finalizar_ordinario($id = null,$value = null){
+        $asignado = $this->Laboral_model->getAsignado($id);
         $datos = array(
             'id' => $id,
             'resolucion' => $value,
             'etapa' => 0,
+            'id_asignado' => $asignado
         );
 
         $this->Laboral_model->editar_monitorio($datos);
         
-        $mail = $this->Laboral_model->getMail(96);
+        $mail = $this->Laboral_model->getMail($asignado);
         $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
 
         redirect(site_url('inicio/index'));
@@ -345,7 +357,12 @@ public function mostrar_ordinario_id($id = null){
     public function enviar_notificacion($id_asignado = null){
         $data = $this->Laboral_model->getMail($id_asignado);
         $this->Laboral_model->sendMail($data['nombre'],$data['email']);
-        
+        $nombre = $data['nombre'];
+        $email = $data['email'];
+        $asignado['nombre'] = $nombre;
+        $asignado['email'] = $email;
+
+        $this->view_handler->view('juridica','notificacion',$asignado);
     }
 
 

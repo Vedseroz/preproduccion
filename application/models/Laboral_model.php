@@ -100,6 +100,14 @@ class Laboral_model extends General_model{
         return $data;
     }
 
+    public function getAsignado($id=null){
+        $query = $this->db->query('SELECT * FROM juridica_laboral WHERE juridica_laboral.id = '.$id);
+        foreach($query->result() as $value){
+            $asignado = $value->id_asignado;
+        }
+        return $asignado;
+    }
+
 
     public function sendMail($nombre = null, $email = null){
         $this->load->library('PHPMailer_Lib');

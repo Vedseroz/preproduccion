@@ -112,10 +112,11 @@ $(document).ready(function() {
                     if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-success">'+ 'Terminado' + '</span>';
                     if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-success">'+ 'En Espera' + '</span>';
                     if(row.etapa == 1){
-                        return addDaystoDate(row.fecha_not,10);
+                        //return addDaystoDate(row.fecha_not,10);
+                        return '<span class="label label-success">'+ 'En Espera' + '</span>';
                     }
                     if(row.etapa == 2){
-                        return row.fecha_res.split("-").reverse().join("-");
+                        return addDaystoDate(row.fecha_res,10); 
                     }
                     if(row.etapa == 3){
                         //return addDaystoDate(row.fecha_prep,5);

@@ -147,6 +147,7 @@
                 <h4>¿En qué estado desea finalizar la causa?</h4>       
             </div>
             <div class="modal-footer">
+            <a type="button" class="btn btn-info" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'3')?> >ACUERDO</a>
             <a type="button" class="btn btn-success" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'1')?> >ACEPTADA</a> <!-- 1 es Aceptada, 0 es rechazada-->
             <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'0')?> >RECHAZADA</a>
             </div>
