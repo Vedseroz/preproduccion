@@ -278,7 +278,8 @@ public function mostrar_ordinario_id($id = null){
             'rol' => $this->input->post('rol'),   
             'fecha_prep' => $this->input->post('fecha_prep'),
             'etapa' => 4,
-            'id_asignado' => $asignado
+            'id_asignado' => $asignado,
+            'observacion' => $this->input->post('observacion')
         );
 
         var_dump($datos);
@@ -305,7 +306,8 @@ public function mostrar_ordinario_id($id = null){
             'rol' => $this->input->post('rol'),   
             'fecha_juicio' => $this->input->post('fecha_juicio'),
             'etapa' => 5,
-            'id_asignado' => $asignado
+            'id_asignado' => $asignado,
+            'observacion' => $this->input->post('observacion')
         );
 
         $mail = $this->Laboral_model->getMail($asignado);
@@ -322,7 +324,8 @@ public function mostrar_ordinario_id($id = null){
             'id' => $id,
             'resolucion' => $value,
             'etapa' => 0,
-            'id_asignado' => $asignado
+            'id_asignado' => $asignado,
+            'observacion' => $this->input->post('observacion')
         );
 
         $this->Laboral_model->editar_monitorio($datos);
@@ -332,6 +335,27 @@ public function mostrar_ordinario_id($id = null){
 
         redirect(site_url('inicio/index'));
     }
+
+
+    public function impugnacion($id = null){             // esta es la funcion que llama cuando pasa a un estado de impugnacion
+        $asignado = $this->Laboral_model->getAsignado($id);
+        $datos = array(
+            'id' => $id,
+            'resolucion' => 0,
+            'etapa' => 6,
+            'id_asignado' => $asignado,
+            'observacion' => $this->input->post('observacion')
+        );
+
+        $this->Laboral_model->editar_monitorio($datos);
+
+        $mail = $this->Laboral_model->getMail($asignado);
+        $this->Laboral_model->sendMail($mail['nombre'],$mail['email']);
+
+        redirect(site_url('inicio/index'));
+
+    }
+
 //==============================================================================================================================================================================
 
     
@@ -350,8 +374,17 @@ public function mostrar_ordinario_id($id = null){
 
     public function asignar_usuario($id = null){            //funcion para reasignar el valor del asignado en la tabla 
             $asignado = $this->input->post('asignado');
-            $this->Laboral_model->asignar_usuario($id,$asignado);
-            redirect(site_url('inicio/index'));
+            $obs = $this->input->post('obs_asignado');
+            $this->Laboral_model->asignar_usuario($id,$asignado,$obs);
+            $this->data['denuncia'] = $this->Laboral_model->getbyid($id);
+            $this->data['asignado'] = $this->Laboral_model->getUsuarios();
+
+            if ($this->data['denuncia']['tipo'] == 'O'){         //si es de tipo ordinario que llame nuevamente a la vista de mostrar.
+            $this->view_handler->view('juridica/Flujoscausa/Laboral','OrdinarioMostrar',$this->data);
+            }
+            if ($this->data['denuncia']['tipo'] == 'M'){
+                $this->view_handler->view('juridica/Flujoscausa/Laboral','MonitorioMostrar',$this->data);
+            }
     }
 
     public function enviar_notificacion($id_asignado = null){

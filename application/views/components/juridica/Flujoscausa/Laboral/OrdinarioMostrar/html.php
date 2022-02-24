@@ -49,8 +49,15 @@
                     <input name="fecha_not" data-rel="tooltip" type="date" id="fecha_not" readonly="readonly" placeholder="" readonly="readonly" class="col-md-2" value="<?= $denuncia['fecha_not']; ?>">
                 </div>
             </div>
+            <br>
 
-            <!--Fecha de respuesta-->
+            <!--Observacion-->
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="fecha_not">Observaciones de la Causa:</label>
+                    <input name="observacion" data-rel="tooltip" type="text" id="observacion" placeholder="" class="col-md-2" value="<?= $denuncia['observacion']; ?>">
+                </div>
+            </div>
 
 
             <br>
@@ -71,7 +78,7 @@
 
             <!--Subir archivo a carpeta local-->
 
-            <div class="row">
+            <!--<div class="row">
                 <div class="box">
                     <div class="col-md-6">
                         <div class="widget-box">
@@ -84,6 +91,29 @@
                                         <div class="col-xs-12">
                                             <input name="documento_fl" type="text" id="id-input-file_fl" readonly="readonly" value="<?= $denuncia['archivo'];?>" />
                                             <a href="<?=site_url('FlujoCausas/Laboral/download/'.$this->uri->segment(4))?>" class="btn btn-primary">Descargar Archivo</a>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="row">
+                <div class="box">
+                    <div class="col-md-6">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Descargar documentos de demanda</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div id="documento" class="form-group">
+                                        <div class="col-xs-12">
+                                        <input multiple name="userFiles[]" type="file" id="id-input-file"  class="form-control-file"/>
+                                        
                                         </div>
                                         <br>
                                     </div>
@@ -138,11 +168,12 @@
                 <?php endif;?>
 
 
-                <?php if($denuncia['etapa'] >= 2 or $denuncia['resolucion'] == 2) :?>
+                <?php if($denuncia['etapa'] >= 2) :?>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
                     Finalizar Causa
                 </button>
                 <?php endif;?>
+
 
             <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,10 +189,10 @@
                 <h4>¿En qué estado desea finalizar la causa?</h4>       
             </div>
             <div class="modal-footer">
-            <a type="button" class="btn btn-info" href=<?= site_url("FlujoCausas/Laboral/finalizar_monitorio/".$this->uri->segment(4).'/'.'3')?> >ACUERDO</a>
+            <a type="button" class="btn btn-info" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'2')?> >ACUERDO</a>
             <a type="button" class="btn btn-success" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'1')?> >ACEPTADA</a> <!-- 1 es Aceptada, 0 es rechazada-->
             <a type="button" class="btn btn-danger" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'0')?> >RECHAZADA</a>
-            <a type="button" class="btn btn-warning" href=<?= site_url("FlujoCausas/Laboral/finalizar_ordinario/".$this->uri->segment(4).'/'.'2')?> >IMPUGNACION</a>
+            <a type="button" class="btn btn-warning" href=<?= site_url("FlujoCausas/Laboral/impugnacion/".$this->uri->segment(4).'/')?> >IMPUGNACION</a>
             </div>
             </div>
         </div>
@@ -188,11 +219,20 @@
             </div>			
 			<?= form_open_multipart(site_url('FlujoCausas/Laboral/asignar_usuario/'. $this->uri->segment(4)), 'class="form-horizontal" role="form" method="POST"') ?>
             <div class="modal-body">
-				<select name="asignado" id="asignado" >
+
+            <ul>
+                <li>
+                    <select name="asignado" id="asignado" >
 					<?php foreach($asignado as $key=>$value): ?>
 					<option id="inputid" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
 					<?php endforeach; ?>
 				</select> 
+                </li>
+                <li>
+                <label class="col-md-2 control-label" for="observacion">Observaciones</label>
+                <input name="obs_asignado" data-rel="tooltip" type="text" id="observacion" placeholder="" class="col-md-2" value="<?= $denuncia['obs_asignado'];?>">
+                </li>
+            </ul>
 
 			</div>
 

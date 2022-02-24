@@ -25,7 +25,9 @@ class Laboral_model extends General_model{
             array('db' =>'juridica_laboral.resolucion','dt' => 'resolucion'),
             array('db' =>'juridica_laboral.id_asignado','dt' => 'id_asignado'),
             array('db' => 'juridica_laboral.nombre_asignado', 'dt' => 'nombre_asignado'),
-            array('db' => 'juridica_laboral.apellido_asignado', 'dt' => 'apellido_asignado')
+            array('db' => 'juridica_laboral.apellido_asignado', 'dt' => 'apellido_asignado'),
+            array('db' => 'juridica_laboral.observacion', 'dt' => 'observacion'),
+            array('db' => 'juridica_laboral.obs_asignado', 'dt' => 'obs_asignado')
 		);
         $data = $this->data_tables->complex($_POST , $table, $primaryKey, $columns);
         return $data;
@@ -53,7 +55,7 @@ class Laboral_model extends General_model{
     }
 
 
-    public function getUsuarios(){
+    public function getUsuarios(){              //funcion para obtener usuarios que van a ser asignados.
         $query = $this->db->query('SELECT * FROM abogados');
         $data = $query->result();
         return $data;
@@ -78,6 +80,8 @@ class Laboral_model extends General_model{
             $data['resolucion'] = $value->resolucion;
             $data['nombre_asignado'] = $value->nombre_asignado;
             $data['apellido_asignado'] = $value->apellido_asignado;
+            $data['observacion'] = $value->observacion;
+            $data['obs_asignado'] =$value->obs_asignado;
         }
         return $data;
     }
@@ -139,11 +143,12 @@ class Laboral_model extends General_model{
 		return $mail->send();
 	}
 
-    public function asignar_usuario($id=null,$asignado=null){
+    public function asignar_usuario($id=null,$asignado=null,$obs=null){
         $query = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.id_asignado = '.$asignado.' WHERE juridica_laboral.id = '.$id);
         $data = $this->Laboral_model->getName($asignado);
         $query2 = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.nombre_asignado = '.'"'.$data['nombre_asignado'].'"'.' WHERE juridica_laboral.id = '.$id);
         $query3 = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.apellido_asignado = '.'"'.$data['apellido_asignado'].'"'.' WHERE juridica_laboral.id = '.$id);
+        $query3 = $this->db->query('UPDATE juridica_laboral SET juridica_laboral.obs_asignado = '.'"'.$obs.'"'.' WHERE juridica_laboral.id = '.$id);
     }
 
 

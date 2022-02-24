@@ -64,25 +64,13 @@
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="tribunal">Tribunal:</label>
                 <select class="chosen-select col-md-2" name="tribunal" value="" onchange="" required>
-                        <option role="placeholder" value="">Seleccionar Tribunal</option>
                         <option role="placeholder" value="1">TRIBUNAL 1</option>
-                        <option role="placeholder" value="2">TRIBUNAL 2</option>
-                        <option role="placeholder" value="3">TRIBUNAL 3</option>
-                        <option role="placeholder" value="4">TRIBUNAL 4</option>
-                        <option role="placeholder" value="5">TRIBUNAL 5</option>
                     </select>
                 </div>
             </div>
 
             <br>
             
-
-            <div class="row">
-                <div class="form-group">
-                <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia:</label>
-                <input name="fecha_res" data-rel="tooltip" type="date" id="fecha_res" placeholder="" class="col-md-2" value="<?php echo set_value('fecha_res')?>">
-                </div>
-            </div>
 
             <br>
 

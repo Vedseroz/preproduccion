@@ -72,15 +72,15 @@ $(document).ready(function() {
                 "searchable": false,
                 "targets": 5,
                 "render": function ( data, type, row ) {
-                    if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-primary">'+ 'ACOGIDA' +'</span>';
-                    if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-primary">' + 'RECHAZADA'+'</span>';
-                    if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-primary">' + 'IMPUGNACION'+'</span>';
+                    if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-success">'+ 'ACOGIDA' +'</span>';
+                    if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-danger">' + 'RECHAZADA'+'</span>';
+                    if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-info">' + 'ACUERDO'+'</span>';
                     if(row.etapa == 1) return 'Denuncia Realizada -> Apertura';         //laboral monitorio
                     if(row.etapa == 2) return 'Apertura -> Formulación de Cargo';        //laboral monitorio
                     if(row.etapa == 3) return 'Denuncia Realizada -> Audiencia Preparatoria';         //laboral ordinario
                     if(row.etapa == 4) return 'Audiencia Preparatoria -> Audiencia al Juicio';        //ordinario
                     if(row.etapa == 5) return 'Audiencia de Juicio -> Resolucion';                     //ordinario
-                    if(row.etapa == 6) return 'Resolución Finalizada'; 
+                    if(row.etapa == 6) return '<span class="label label-warning">' + 'IMPUGNACION'+'</span>';
                         return '<span class="label label-success">'+ 'En Espera' + '</span>';                                //ordinario
                 }
             },
@@ -110,7 +110,7 @@ $(document).ready(function() {
                 "render": function ( data, type, row ) {
                     if (row.etapa == 0 && row.resolucion == 1) return '<span class="label label-success">'+ 'Terminado' + '</span>';
                     if (row.etapa == 0 && row.resolucion == 0) return '<span class="label label-success">'+ 'Terminado' + '</span>';
-                    if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-success">'+ 'En Espera' + '</span>';
+                    if (row.etapa == 0 && row.resolucion == 2) return '<span class="label label-success">'+ 'Terminado' + '</span>';
                     if(row.etapa == 1){
                         //return addDaystoDate(row.fecha_not,10);
                         return '<span class="label label-success">'+ 'En Espera' + '</span>';
@@ -123,11 +123,14 @@ $(document).ready(function() {
                         return '<span class="label label-success">'+ 'En Espera' + '</span>';
                     }
                     if(row.etapa == 4){
-                        return addDaystoDate(row.fecha_prep,5);
+                        return addDaystoDate(row.fecha_prep,6);
                         //return addDaystoDate(row.fecha_juicio,3);
                     }
                     if(row.etapa == 5){
                         return addDaystoDate(row.fecha_juicio,3);
+                    }
+                    if(row.etapa == 6){
+                        return '<span class="label label-success">'+ 'En Espera' + '</span>';
                     }
 
                 }
@@ -147,6 +150,7 @@ $(document).ready(function() {
                     if(row.etapa == 3) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id;
                     if(row.etapa == 4) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id ;
                     if(row.etapa == 5) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id ;
+                    if(row.etapa == 6) link_edit = '<?= site_url('FlujoCausas/Laboral/mostrar_ordinario_id') ?>/' + row.id ;
                     
                     var options_normal = '<div class="hidden-sm hidden-xs action-buttons">';
                     var edit_normal = '<a class="blue" href="' + link_edit + '" title="Continuar"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
@@ -183,7 +187,7 @@ $(document).ready(function() {
             },
 
         ],
-        "order": [[ 0, "asc" ]],
+        "order": [[ 0, "desc" ]],
         "language": {
             "url": "<?= base_url('assets/js/dataTable.spanish.json') ?>"
         }
@@ -331,13 +335,9 @@ $(document).ready(function() {
     function addDaystoDate(date,days){
         var res = new Date(date);
         res.setDate(res.getDate() - days);          //calcula la suma de dias para la siguiente etapa
-        if(res.getDay() == 0){                         //calculo en caso de que el dia sea sabado
+        if(res.getDay() == 0){                         //calculo en caso de que el dia sea domingo
             res.setDate(res.getDate() - 2);  
         }
-        if(res.getDay() == 6){                          //calculo en caso de que el dia sea domingo
-            res.setDate(res.getDate() - 1);
-        }
-        
         after_date = res;
         year = after_date.getFullYear();            //saca el año
 

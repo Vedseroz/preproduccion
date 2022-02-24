@@ -51,7 +51,13 @@
                 </div>
             </div>
 
-            <!--Fecha de respuesta-->
+            <!--Observacion-->
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="fecha_not">Observaciones de la Causa</label>
+                    <input name="observacion" data-rel="tooltip" type="text" id="observacion" placeholder="" class="col-md-2" value="<?= $denuncia['observacion']; ?>">
+                </div>
+            </div>
 
 
             <br>
@@ -181,6 +187,9 @@
 					<option id="inputid" value="<?php echo $value->id?>"><?php echo $value->first_name.' '.$value->last_name?></option>
 					<?php endforeach; ?>
 				</select> 
+
+                <label class="col-md-2 control-label" for="observacion">Observaciones/Comentarios</label>
+                <input name="obs_asignado" data-rel="tooltip" type="text" id="observacion" placeholder="" class="col-md-2" >
 
 			</div>
 
