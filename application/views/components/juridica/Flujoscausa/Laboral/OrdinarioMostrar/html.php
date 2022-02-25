@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fecha_not">Observaciones de la Causa:</label>
-                    <input name="observacion" data-rel="tooltip" type="text" id="observacion" placeholder="" class="col-md-2" value="<?= $denuncia['observacion']; ?>">
+                    <textarea name="observacion" data-rel="tooltip" type="text" id="observacion" placeholder="" class="col-md-2" ><?= $denuncia['observacion']; ?></textarea>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
 
             <!--Subir archivo a carpeta local-->
 
-            <!--<div class="row">
+            <div class="row">
                 <div class="box">
                     <div class="col-md-6">
                         <div class="widget-box">
@@ -131,7 +131,7 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia Preparatoria:</label>
-                <input name="fecha_prep" data-rel="tooltip" <?php if($denuncia['etapa']==0 ||$denuncia['etapa'] == 5){ echo 'readonly'; }?> type="date" id="fecha_prep" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_prep']?>">
+                <input name="fecha_prep" data-rel="tooltip" <?php if($denuncia['etapa']===0 ||$denuncia['etapa'] === 5){ echo 'readonly'; }?> type="date" id="fecha_prep" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_prep']?>">
                 </div>
             </div>
             <?php endif;?>
@@ -140,7 +140,7 @@
             <div class="row">
                 <div class="form-group">
                 <label class="col-md-2 control-label" for="fecha_res">Fecha de Audiencia del Juicio:</label>
-                <input name="fecha_juicio" data-rel="tooltip" <?php if($denuncia['etapa']==0 ||$denuncia['etapa'] == 5){ echo 'readonly'; }?> type="date" id="fecha_juicio" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_juicio']?>">
+                <input name="fecha_juicio" data-rel="tooltip" <?php if($denuncia['etapa']===0 ||$denuncia['etapa'] === 5){ echo 'readonly'; }?> type="date" id="fecha_juicio" placeholder="" class="col-md-2" value="<?= $denuncia['fecha_juicio']?>">
                 </div>
             </div>
             <?php endif;?>
@@ -197,14 +197,17 @@
             </div>
         </div>
     </div>                
-    
 
-    <!--boton de asignar al-->
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#asignar">
-        Reasignar Usuario
-    </button>
-    </div>
+
+    <?php
+        if($denuncia['etapa'] != 0){
+            echo '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#asignar">
+            Reasignar Usuario
+            </button>';
+        }
     
+    ?>
+
 
     </form>
 
